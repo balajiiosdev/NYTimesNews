@@ -1,0 +1,39 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+project = "NYTimesNews.xcodeproj"
+scheme = "NYTimesNews"
+projectDir= File.expand_path "#{Dir.pwd}/.."
+derived_data_path = "#{projectDir}/derivedData"
+
+platform :ios do
+  desc "Runs the Unit tests and UI tests and generates coverage report"
+  lane :tests do
+    run_tests(scheme: scheme,
+              derived_data_path: derived_data_path,
+              code_coverage: true,
+              formatter: 'xcpretty-json-formatter'
+            )
+    slather(build_directory: "#{derived_data_path}/Build",
+            scheme: scheme,
+            proj: project,
+            input_format: "profdata",
+            output_directory: "#{derived_data_path}/code-coverage/",
+            html: true
+            )
+  end
+end
