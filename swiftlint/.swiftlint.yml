@@ -1,0 +1,216 @@
+excluded:
+  - '../../**/Carthage'
+  - '../../Carthage'
+  - '../../**/.git'
+  - '../../target'
+  - '../../**/target'
+disabled_rules:
+  - attributes    # Inconsistent behaviour
+  - conditional_returns_on_newline    # allowed as long as it's a single return only
+  - discouraged_object_literal  # Not part of our coding standards
+  - explicit_acl  # Not part of our coding standards
+  - explicit_self
+  - explicit_type_interface     # Not part of our coding standards
+  - extension_access_modifier   # Not part of our coding standards - contradicts with `no_extension_access_modifier`
+  - indentation_width
+  - multiline_arguments_brackets    # Not part of our coding standards
+  - multiline_function_chains   # Conflicts with `closure_end_indentation`
+  - multiline_literal_brackets    # Not part of our coding standards
+  - multiline_parameters_brackets    # Not part of our coding standards
+  - no_grouping_extension    # Not part of our coding standards
+  - number_separator    # Not part of our coding standards
+  - prefer_nimble
+  - prefixed_toplevel_constant   # Not part of our coding standards
+  - prohibited_interface_builder    # We allow this
+  - redundant_string_enum_value   # Contradicts `explicit_enum_raw_value`
+  - redundant_type_annotation   # Legitimate use cases for this one - e.g. compiler performance hints
+  - required_deinit    # Not required by our coding standards
+  - sorted_imports      # Not part of our coding standards
+opt_in_rules:
+  - anyobject_protocol
+  - array_init
+  - balanced_xctest_lifecycle
+  - capture_variable
+  - closure_body_length
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - computed_accessors_order
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - contains_over_range_nil_comparison
+  - convenience_type
+  - discarded_notification_center_observer
+  - discouraged_assert
+  - discouraged_optional_boolean
+  - discouraged_optional_collection
+  - duplicate_enum_cases
+  - empty_collection_literal
+  - empty_count
+  - empty_enum_arguments
+  - empty_string
+  - empty_xctest_method
+  - enum_case_associated_values_count
+  - expiring_todo
+  - explicit_enum_raw_value
+  - explicit_init
+  - explicit_top_level_acl    # Can disable for Application projects
+  - fatal_error_message
+  - fallthrough
+  - file_header
+  - file_name
+  - file_name_no_space
+  - file_types_order
+  - first_where
+  - flatmap_over_map_reduce
+  - force_unwrapping
+  - function_default_parameter_at_end
+  - ibinspectable_in_extension
+  - identical_operands
+  - implicit_return
+  - implicitly_unwrapped_optional
+  - joined_default_parameter
+  - last_where
+  - legacy_multiple
+  - legacy_objc_type
+  - legacy_random
+  - let_var_whitespace
+  - literal_expression_end_indentation
+  - lower_acl_than_parent
+  - missing_docs
+  - modifier_order
+  - multiline_arguments
+  - multiline_parameters
+  - nesting
+  - nimble_operator
+  - nslocalizedstring_key
+  - nslocalizedstring_require_bundle
+  - no_extension_access_modifier
+  - no_space_in_method_call
+  - object_literal
+  - operator_usage_whitespace
+  - optional_enum_case_matching
+  - overridden_super_call
+  - override_in_extension
+  - pattern_matching_keywords
+  - prefer_self_type_over_type_of_self
+  - prefer_zero_over_explicit_init
+  - private_action
+  - private_outlet
+  - private_subject
+  - prohibited_super_call
+  - protocol_property_accessors_order
+  - quick_discouraged_call
+  - quick_discouraged_focused_test
+  - quick_discouraged_pending_test
+  - raw_value_for_camel_cased_codable_enum
+  - reduce_into
+  - redundant_nil_coalescing
+  - required_enum_case
+  - single_test_class
+  - sorted_first_last
+  - static_operator
+  - strict_fileprivate
+  - strong_iboutlet
+  - switch_case_on_newline
+  - test_case_accessibility
+  - toggle_bool
+  - trailing_closure
+  - type_contents_order
+  - unavailable_function
+  - unneeded_parentheses_in_closure_argument
+  - unowned_variable_capture
+  - unused_declaration
+  - unused_import
+  - untyped_error_in_catch
+  - vertical_parameter_alignment_on_call
+  - vertical_whitespace_between_cases
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - xct_specific_matcher
+  - yoda_condition
+line_length:
+  warning: 120
+  error: 200
+  ignores_urls: true
+type_body_length:
+  - 300
+  - 400
+file_length:
+  - 500
+  - 1200
+type_contents_order:
+  order:
+    - [case, type_alias, associated_type, subtype]
+    - [ib_outlet, type_property, ib_inspectable, instance_property]
+    - [initializer, type_method, view_life_cycle_method, ib_action, other_method]
+    - subscript
+custom_rules:
+  if_as_guard:
+    included: .*.swift
+    regex: '^ *if [^\{]+\{\s*(return|continue|break)[^\n]*\n *\}(?! *else)'
+    name: If as Guard
+    message: >-
+      Don't use an if statement to just return – use guard for such cases
+      instead.
+    severity: warning
+  nslog_debug:
+    included: .*.swift
+    regex: ^ *(NSLog|print)\(.*\)
+    name: Print statement used instead of DDLog
+    message: 'Don''t use NSLog, or print, use DDLog'
+    severity: warning
+  prefer_isempty_equal_false:
+    included: .*.swift
+    regex: ' !([^\n ])*.isEmpty(?! == .*)'
+    name: Prefer isEmpty == false over !.isEmpty
+    message: Use <variable>.isEmpty == false over !<variable>.isEmpty form
+    severity: warning
+  vertical_whitespace_opening_braces:
+    included: .*.swift
+    regex: '[{(\[][ \t]*\n[ \t]*\n'
+    name: Vertical Whitespace after Opening Braces
+    message: Don't include vertical whitespace (empty line) after opening braces.
+    severity: warning
+  vertical_whitespace_closing_braces:
+    included: .*.swift
+    regex: '^[ \t]*\n[ \t]*[)}\]]'
+    name: Vertical Whitespace before Closing Braces
+    message: Don't include vertical whitespace (empty line) before closing braces.
+    severity: warning
+  swiftlint_validate_scope:
+    included: .*.swift
+    regex: 'swiftlint:disable[^:](next|this|previous)\s'
+    name: Invalid declaration of swiftlint scope.
+    message: >-
+      If scope is specified for a SwiftLint annotation, it must use a colon to
+      separate annotation statements. e.g. // swiftlint:disable:next
+    severity: error
+    match_kinds: comment
+  swiftlint_mark:
+    included: .*.swift
+    regex: 'MARK: (?!-)'
+    name: Mark annotation validation
+    message: 'Missing separator marker, should be in the form // MARK: - Title'
+    severity: warning
+    match_kinds: comment
+  swiftlint_mark_description:
+    included: .*.swift
+    regex: 'MARK: -$'
+    name: Mark annotation description
+    message: 'Missing description, should be in the form // MARK: - Title'
+    severity: warning
+    match_kinds: comment
+file_header:
+  required_pattern: |
+    \/\/
+    \/\/  .*\.swift
+    \/\/  .*
+    \/\/
+    \/\/  Created by .* on \d{1,2}/\d{1,2}/\d{2,4}\.
+    \/\/  Copyright © 20\d{2} Synchronoss(.+?)?\. All rights reserved\.
+    (\/\/)?
+missing_docs:
+  excludes_extensions: false
+  excludes_inherited_types: false
