@@ -30,6 +30,7 @@
 		6C4C27A02843E44C007D35FB /* MockDataFileNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C279F2843E44C007D35FB /* MockDataFileNames.swift */; };
 		6C4C27A22843F4A1007D35FB /* MockDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27A12843F4A1007D35FB /* MockDataRequest.swift */; };
 		6C4C27A42843F671007D35FB /* DataRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27A32843F671007D35FB /* DataRequestTests.swift */; };
+		6C4C27A62843F90B007D35FB /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27A52843F90B007D35FB /* NetworkServiceError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		6C4C279F2843E44C007D35FB /* MockDataFileNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataFileNames.swift; sourceTree = "<group>"; };
 		6C4C27A12843F4A1007D35FB /* MockDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataRequest.swift; sourceTree = "<group>"; };
 		6C4C27A32843F671007D35FB /* DataRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestTests.swift; sourceTree = "<group>"; };
+		6C4C27A52843F90B007D35FB /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				6C4C27872843CA3C007D35FB /* HTTPMethod.swift */,
 				6C4C278B2843CC6A007D35FB /* DataRequest.swift */,
 				6C4C27992843D895007D35FB /* NetworkService.swift */,
+				6C4C27A52843F90B007D35FB /* NetworkServiceError.swift */,
 			);
 			path = NetworkLayer;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C4C278F2843CF3D007D35FB /* TopNewsRequest.swift in Sources */,
+				6C4C27A62843F90B007D35FB /* NetworkServiceError.swift in Sources */,
 				6C4C274F284383FD007D35FB /* Article.swift in Sources */,
 				6C4C279A2843D895007D35FB /* NetworkService.swift in Sources */,
 				6C4C275128438452007D35FB /* MultiMediaItem.swift in Sources */,

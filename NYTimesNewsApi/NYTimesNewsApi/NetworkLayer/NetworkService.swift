@@ -71,7 +71,7 @@ final class NetworkService: NetworkServiceProtocol {
                 return completion(.failure(httpError))
             }
             guard let data = data else {
-                return completion(.failure(NSError()))
+                return completion(.failure(NetworkServiceError.noDataFound))
             }
             do {
                 try completion(.success(request.decode(data)))
