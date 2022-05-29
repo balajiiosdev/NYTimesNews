@@ -37,7 +37,9 @@ class TopNewsRequestTests: XCTestCase {
     }
 
     func testQueryParameters() {
-        XCTAssertTrue(sut.queryItems.isEmpty)
+        XCTAssertFalse(sut.queryItems.isEmpty)
+        XCTAssertEqual(sut.queryItems.count, 1)
+        XCTAssertNotNil(sut.queryItems["apiKey"])
     }
 
     func testDecode() throws {
