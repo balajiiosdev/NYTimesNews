@@ -11,6 +11,13 @@
 		6C4C273E284381B3007D35FB /* NYTimesNewsApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C4C2733284381B3007D35FB /* NYTimesNewsApi.framework */; };
 		6C4C2743284381B3007D35FB /* NYTimesNewsApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C2742284381B3007D35FB /* NYTimesNewsApiTests.swift */; };
 		6C4C2744284381B3007D35FB /* NYTimesNewsApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C4C2736284381B3007D35FB /* NYTimesNewsApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C4C274F284383FD007D35FB /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C274E284383FD007D35FB /* Article.swift */; };
+		6C4C275128438452007D35FB /* MultiMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C275028438452007D35FB /* MultiMediaItem.swift */; };
+		6C4C277D28439574007D35FB /* top_news_valid_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C4C277C28439574007D35FB /* top_news_valid_response.json */; };
+		6C4C277F2843A7C5007D35FB /* TopNewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C277E2843A7C5007D35FB /* TopNewsResponse.swift */; };
+		6C4C27812843AEA4007D35FB /* TopNewsResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27802843AEA4007D35FB /* TopNewsResponseTests.swift */; };
+		6C4C27842843B076007D35FB /* top_news_empty_results.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C4C27832843B076007D35FB /* top_news_empty_results.json */; };
+		6C4C27862843C2E1007D35FB /* error_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C4C27852843C2E1007D35FB /* error_response.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +36,13 @@
 		6C4C2737284381B3007D35FB /* NYTimesNewsApi.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = NYTimesNewsApi.docc; sourceTree = "<group>"; };
 		6C4C273D284381B3007D35FB /* NYTimesNewsApiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NYTimesNewsApiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C4C2742284381B3007D35FB /* NYTimesNewsApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesNewsApiTests.swift; sourceTree = "<group>"; };
+		6C4C274E284383FD007D35FB /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		6C4C275028438452007D35FB /* MultiMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiMediaItem.swift; sourceTree = "<group>"; };
+		6C4C277C28439574007D35FB /* top_news_valid_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = top_news_valid_response.json; sourceTree = "<group>"; };
+		6C4C277E2843A7C5007D35FB /* TopNewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNewsResponse.swift; sourceTree = "<group>"; };
+		6C4C27802843AEA4007D35FB /* TopNewsResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNewsResponseTests.swift; sourceTree = "<group>"; };
+		6C4C27832843B076007D35FB /* top_news_empty_results.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = top_news_empty_results.json; sourceTree = "<group>"; };
+		6C4C27852843C2E1007D35FB /* error_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = error_response.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +85,7 @@
 		6C4C2735284381B3007D35FB /* NYTimesNewsApi */ = {
 			isa = PBXGroup;
 			children = (
+				6C4C275228438F2A007D35FB /* Models */,
 				6C4C2736284381B3007D35FB /* NYTimesNewsApi.h */,
 				6C4C2737284381B3007D35FB /* NYTimesNewsApi.docc */,
 			);
@@ -81,8 +96,30 @@
 			isa = PBXGroup;
 			children = (
 				6C4C2742284381B3007D35FB /* NYTimesNewsApiTests.swift */,
+				6C4C27802843AEA4007D35FB /* TopNewsResponseTests.swift */,
+				6C4C27822843AF46007D35FB /* MockData */,
 			);
 			path = NYTimesNewsApiTests;
+			sourceTree = "<group>";
+		};
+		6C4C275228438F2A007D35FB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6C4C274E284383FD007D35FB /* Article.swift */,
+				6C4C275028438452007D35FB /* MultiMediaItem.swift */,
+				6C4C277E2843A7C5007D35FB /* TopNewsResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6C4C27822843AF46007D35FB /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				6C4C277C28439574007D35FB /* top_news_valid_response.json */,
+				6C4C27832843B076007D35FB /* top_news_empty_results.json */,
+				6C4C27852843C2E1007D35FB /* error_response.json */,
+			);
+			path = MockData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +222,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C4C277D28439574007D35FB /* top_news_valid_response.json in Resources */,
+				6C4C27842843B076007D35FB /* top_news_empty_results.json in Resources */,
+				6C4C27862843C2E1007D35FB /* error_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +256,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C4C274F284383FD007D35FB /* Article.swift in Sources */,
+				6C4C275128438452007D35FB /* MultiMediaItem.swift in Sources */,
 				6C4C2738284381B3007D35FB /* NYTimesNewsApi.docc in Sources */,
+				6C4C277F2843A7C5007D35FB /* TopNewsResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C4C2743284381B3007D35FB /* NYTimesNewsApiTests.swift in Sources */,
+				6C4C27812843AEA4007D35FB /* TopNewsResponseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +462,7 @@
 		6C4C274B284381B3007D35FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -438,6 +483,7 @@
 		6C4C274C284381B3007D35FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
