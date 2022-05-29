@@ -33,7 +33,7 @@ package NewsApi {
 
     class TopNewsRequest {
         +response: TopNewsResponse
-        +init(category: NewsCategory)
+        +init(section: Section)
     }
 
     class TopNewsResponse {
@@ -88,7 +88,7 @@ package NewsApi {
         +copyright: String
     }
 
-    enum NewsCategory {
+    enum Section {
         case home
         case arts
         case automobiles
@@ -121,7 +121,7 @@ package NewsApi {
     DataRequest <|.. TopNewsRequest
     DataRequest *--> HTTPMethod
     TopNewsRequest *--> "0..1" TopNewsResponse
-    TopNewsRequest o--> "uses" NewsCategory
+    TopNewsRequest o--> "uses" Section
     TopNewsResponse *--> "0..*" Article
     NetworkServiceProtocol <|.. NetworkService
     NetworkService o-down-> "uses" URLSession
@@ -137,7 +137,7 @@ package Application {
             +router: NewsRouting
             -articles: Article[*]
             -tableView: UITableView
-            +init(category: NewsCategory):Void
+            +init(section: Section):Void
         }
 
         class NewsTableViewCell extends UITableViewCell {
@@ -152,7 +152,7 @@ package Application {
         }
 
         interface NewsBusinessLogic {
-            +fetch(type: NewsCategory):Void
+            +fetch(section: Section):Void
         }
 
         class NewsInteractor {
