@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:NYTimesNewsApi/NYTimesNewsApi.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:NYTimesNews.xcodeproj">
    </FileRef>
 </Workspace>
