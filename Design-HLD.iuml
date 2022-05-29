@@ -1,0 +1,230 @@
+@startuml HLD
+title New York Times HLD Class diagram
+
+hide empty members
+
+package NewsApi {
+    enum HTTPMethod {
+        case get
+        case post
+        case put
+        case patch
+        case delete
+    }
+
+    interface DataRequest {
+        associatedtype Response
+
+        +url: String
+        +method: HTTPMethod
+        +headers: [String : String]
+        +queryItems: [String : String]
+
+        +decode(data: Data): Response
+    }
+
+    interface NetworkServiceProtocol {
+        ~request<Request: DataRequest>(request: Request, completion: (Result<Request.Response, Error>):Void):Void
+    }
+
+    class NetworkService {
+        ~init(urlSession: URLSession)
+    }
+
+    class TopNewsRequest {
+        +response: TopNewsResponse
+        +init(category: NewsCategory)
+    }
+
+    class TopNewsResponse {
+        +status: String
+        +copyright: String
+        +section: String
+        +lastUpdated: String
+        +numOfResults: Int
+        +results: Article[*]
+    }
+
+    interface NewsApiService {
+        +fetchTopNews(request: TopNewsRequest, completion: (Result<TopNewsResponse, Error>))
+    }
+
+    class NewsApiServiceProvider {
+        -networkService: NetworkServiceProtocol
+        ~init(networkService: NetworkServiceProtocol)
+        +init()
+    }
+
+    class Article {
+        +section: String
+        +subsection: String
+        +title: String
+        +abstract: String
+        +url: String
+        +uri: String
+        +byline: String
+        +item_type: String
+        +updated_date: String
+        +created_date: String
+        +published_date: String
+        +material_type_facet: String
+        +kicker: String
+        +short_url: String
+        +desFacet: String[*]
+        +orgFacet: String[*]
+        +perFacet: String[*]
+        +geoFacet: String[*]
+        +multimediaItems: MultiMediaItem[*]
+    }
+
+    class MultiMediaItem {
+        +url: String
+        +format: String
+        +height: Int
+        +width: Int
+        +type: String
+        +subtype: String
+        +caption: String
+        +copyright: String
+    }
+
+    enum NewsCategory {
+        case home
+        case arts
+        case automobiles
+        case books
+        case business
+        case fashion
+        case food
+        case health
+        case insider
+        case magazine
+        case movies
+        case nyregion
+        case obituaries
+        case opinion
+        case politics
+        case realestate
+        case science
+        case sports
+        case sundayreview
+        case technology
+        case theater
+        case tMagazine
+        case travel
+        case upshot
+        case us
+        case world
+    }
+
+    Article *--> "*" MultiMediaItem
+    DataRequest <|.. TopNewsRequest
+    DataRequest *--> HTTPMethod
+    TopNewsRequest *--> "0..1" TopNewsResponse
+    TopNewsRequest o--> "uses" NewsCategory
+    TopNewsResponse *--> "0..*" Article
+    NetworkServiceProtocol <|.. NetworkService
+    NetworkService o-down-> "uses" URLSession
+    NewsApiService <|.. NewsApiServiceProvider
+    NewsApiServiceProvider *--> "1" NetworkServiceProtocol
+    NewsApiServiceProvider --> TopNewsRequest
+}
+
+package Application {
+    package NewsList {
+        class NewsViewController {
+            +interactor: NewsBusinessLogic
+            +router: NewsRouting
+            -articles: Article[*]
+            -tableView: UITableView
+            +init(category: NewsCategory):Void
+        }
+
+        class NewsTableViewCell extends UITableViewCell {
+            -image: UIImage
+            -titleLabel: UILabel
+            -authorLabel: UILabel
+            +prepareCell(article: Article)
+        }
+
+        interface NewsListDisplayLogic {
+            +reload(article: Article[*]):Void
+        }
+
+        interface NewsBusinessLogic {
+            +fetch(type: NewsCategory):Void
+        }
+
+        class NewsInteractor {
+            +presenter: NewsPresentation
+            +init(newsApiService: NewsApiService)
+        }
+
+        interface NewsPresentation {
+            +presentNews(response: Article[*])
+        }
+
+        class NewsPresenter {
+            +{weak}view: NewsListDisplayLogic?
+        }
+
+        interface NewsRouting {
+            +showNewsDetailView(article: Article, navigation: UINavigationController):Void
+        }
+
+        class NewsRouter {
+
+        }
+    }
+
+    package NewsDetail {
+        class NewsDetailViewController {
+            -interactor: NewsDetailBusinessLogic
+        }
+
+        interface NewsDetailDisplayLogic {
+            +display(article: Article):Void
+        }
+
+        interface NewsDetailBusinessLogic {
+            +fetchDetails(article: Article):Void
+            +loadNext():void
+            +loadPrevious():void
+        }
+
+        class NewsDetailsInteractor {
+            +presenter: NewsDetailsPresentation
+            - article: Article
+            +init(articles: Article)
+        }
+
+        interface NewsDetailsPresentation {
+            +presentNews(response: Article)
+        }
+
+        class NewsDetailsPresenter {
+            +{weak}view: NewsDetailDisplayLogic?
+        }
+
+        NewsDetailBusinessLogic <|.. NewsDetailsInteractor
+        NewsDetailViewController *--> NewsDetailBusinessLogic
+        NewsDetailDisplayLogic <|.. NewsDetailViewController
+        NewsDetailsPresentation <|.. NewsDetailsPresenter
+        NewsDetailsInteractor *--> NewsDetailsPresentation
+        NewsDetailsPresenter ...> "weak" NewsDetailDisplayLogic
+    }
+}
+
+NewsBusinessLogic <|.. NewsInteractor
+NewsViewController *-up-> NewsBusinessLogic
+NewsListDisplayLogic <|.. NewsViewController
+NewsPresentation <|.. NewsPresenter
+NewsInteractor *-> NewsPresentation
+NewsPresenter ..> "weak" NewsListDisplayLogic
+NewsViewController *-> NewsRouting
+NewsViewController --> NewsTableViewCell
+NewsRouting <|.. NewsRouter
+NewsRouter o--> NewsDetailViewController
+NewsInteractor *--> NewsApiService
+
+@enduml
