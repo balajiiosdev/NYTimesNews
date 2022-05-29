@@ -22,7 +22,7 @@ public struct TopNewsResponse: Codable {
         section = try map.decode(String.self, forKey: .section)
         lastUpdated = try map.decode(String.self, forKey: .lastUpdated)
         numOfResults = try map.decode(Int.self, forKey: .numOfResults)
-        results = try map.decodeIfPresent([Article].self, forKey: .results) ?? []
+        results = try map.decode([Article].self, forKey: .results)
     }
 
     enum CodingKeys: String, CodingKey {
