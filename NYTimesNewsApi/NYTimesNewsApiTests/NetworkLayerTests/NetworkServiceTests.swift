@@ -155,8 +155,7 @@ class NetworkServiceTests: XCTestCase {
             case .success(_):
                 XCTFail("Success is not expected")
             case .failure(let error):
-                let nsError = error as NSError
-                XCTAssertEqual(nsError.code, 404)
+                XCTAssertEqual((error as? NetworkServiceError), NetworkServiceError.malformedUrl)
             }
             expectation.fulfill()
         }

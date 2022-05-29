@@ -19,16 +19,10 @@ final class NetworkService: NetworkServiceProtocol {
         self.session = session
     }
 
-    private func buildUrl<Request: DataRequest>(request: Request) throws -> URL {
+    private func buildUrl<Request: DataRequest>(request: Request) -> URL? {
         guard var urlComponent = URLComponents(string: request.url) else {
-            let error = NSError(
-                domain: "HttpError",
-                code: 404,
-                userInfo: nil
-            )
-            throw error
+            return nil
         }
-
         var queryItems: [URLQueryItem] = []
         request.queryItems.forEach {
             let urlQueryItem = URLQueryItem(name: $0.key, value: $0.value)
@@ -36,26 +30,13 @@ final class NetworkService: NetworkServiceProtocol {
             queryItems.append(urlQueryItem)
         }
         urlComponent.queryItems = queryItems
-
-        guard let url = urlComponent.url else {
-            let error = NSError(
-                domain: "HttpError",
-                code: 404,
-                userInfo: nil
-            )
-            throw error
-        }
-        return url
+        return urlComponent.url
     }
 
     func request<Request: DataRequest>(_ request: Request,
                                        completion: @escaping (Result<Request.Response, Error>) -> Void) {
-        var url: URL
-        do {
-            url = try buildUrl(request: request)
-        } catch {
-            completion(.failure(error))
-            return
+        guard let url = buildUrl(request: request) else {
+            return completion(.failure(NetworkServiceError.malformedUrl))
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
@@ -64,10 +45,11 @@ final class NetworkService: NetworkServiceProtocol {
             if let error = error {
                 return completion(.failure(error))
             }
-            guard let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
-                let internalServerError = 500
-                let statusCode = (response as? HTTPURLResponse)?.statusCode ?? internalServerError
-                let httpError = NSError(domain: "HttpError", code: statusCode, userInfo: nil)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                return completion(.failure(NetworkServiceError.unknown))
+            }
+            guard 200..<300 ~= httpResponse.statusCode else {
+                let httpError = HttpError(rawValue: httpResponse.statusCode) ?? HttpError.internalServerError
                 return completion(.failure(httpError))
             }
             guard let data = data else {
