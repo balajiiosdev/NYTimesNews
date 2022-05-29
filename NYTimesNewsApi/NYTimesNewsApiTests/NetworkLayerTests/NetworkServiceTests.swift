@@ -145,6 +145,31 @@ class NetworkServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 10.0)
     }
 
+    func testRequest_FailedDueToHttpResponseIsNil() throws {
+        let request = TopNewsRequest()
+        let expectation = self.expectation(description: "HTTPURLResponse nil scenario")
+        let mockUrlSession = MockUrlSession()
+        let dataTask = MockUrlSessionDataTask(data: nil,
+                                              request: nil,
+                                              urlResponse: nil,
+                                              httpError: nil,
+                                              completionHandler: nil)
+        mockUrlSession.mockDataTask = dataTask
+        let sut = NetworkService(session: mockUrlSession)
+
+        sut.request(request) { result in
+            switch result {
+            case .success(_):
+                XCTFail("Success is not expected")
+            case .failure(let error):
+                XCTAssertEqual(error as? NetworkServiceError, .unknown)
+            }
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 10.0)
+    }
+
     func testRequest_FailedToBuildUrlWithMalformedUrl() {
         let request = TopNewsRequest(url: "\\ewrewre")
         let expectation = self.expectation(description: "URL Error scenario")
