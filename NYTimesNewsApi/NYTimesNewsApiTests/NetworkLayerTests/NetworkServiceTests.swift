@@ -9,27 +9,36 @@ import XCTest
 @testable import NYTimesNewsApi
 
 class NetworkServiceTests: XCTestCase {
-    var sut: NetworkService!
-
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-
-        sut =  NetworkService()
-    }
-
-    override func tearDownWithError() throws {
-        sut = nil
-        try super.tearDownWithError()
-    }
-
-    func testRequest_SuccessfulScenario() {
+    func testRequest_SuccessfulScenario() throws {
         let request = TopNewsRequest()
         let expectation = self.expectation(description: "Successful scenario")
+        guard let mockResponseUrl = url(for: MockDataFileNames.topNewsValidResponse) else {
+            XCTFail("\(MockDataFileNames.topNewsValidResponse) is not found")
+            return
+        }
+        let data = try Data(contentsOf: mockResponseUrl)
+        guard let url = URL(string: request.url) else {
+            XCTFail("TopNewsRequest URL is nil")
+            return
+        }
+        let urlResponse =  HTTPURLResponse(url: url,
+                                           statusCode: 200,
+                                           httpVersion: nil,
+                                           headerFields: nil)
+        let mockUrlSession = MockUrlSession()
+        let dataTask = MockUrlSessionDataTask(data: data,
+                                                    request: nil,
+                                                    urlResponse: urlResponse,
+                                                    httpError: nil,
+                                                    completionHandler: nil)
+        mockUrlSession.mockDataTask = dataTask
+        let sut = NetworkService(session: mockUrlSession)
 
         sut.request(request) { result in
             switch result {
             case .success(let response):
                 XCTAssertEqual(response.status, "OK")
+                XCTAssertEqual(response.numOfResults, 36)
             case .failure(let error):
                 XCTFail("Failure is not expected, \(error.localizedDescription)")
             }

@@ -12,7 +12,7 @@ class TopNewsResponseTests: XCTestCase {
 
     func testTopNewsResponseParsing_ValidResponse() {
         do {
-            let topNews = try parse(fileName: "top_news_valid_response.json")
+            let topNews = try parse(fileName: MockDataFileNames.topNewsValidResponse)
             let topNewsUnwrapped = try XCTUnwrap(topNews)
             XCTAssertEqual(topNewsUnwrapped.numOfResults, 36)
             XCTAssertEqual(topNewsUnwrapped.numOfResults, topNewsUnwrapped.results.count)
@@ -24,7 +24,7 @@ class TopNewsResponseTests: XCTestCase {
 
     func testTopNewsResponseParsing_ResponseWithNoResults() {
         do {
-            let topNews = try parse(fileName: "top_news_empty_results.json")
+            let topNews = try parse(fileName: MockDataFileNames.topNewsEmptyResults)
             let topNewsUnwrapped = try XCTUnwrap(topNews)
             XCTAssertEqual(topNewsUnwrapped.numOfResults, 0, "expected 0 results")
             let message = "num_results is not same as results array count"
@@ -37,7 +37,7 @@ class TopNewsResponseTests: XCTestCase {
 
     func testTopNewsResponseParsing_ErrorResponse() {
         do {
-            _ = try parse(fileName: "error_response.json")
+            _ = try parse(fileName: MockDataFileNames.errorResponse)
             XCTFail("Decoding error is expected")
         } catch let error {
             XCTAssertTrue(error is DecodingError)

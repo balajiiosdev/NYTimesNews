@@ -41,7 +41,7 @@ class TopNewsRequestTests: XCTestCase {
     }
 
     func testDecode() throws {
-        let url = try XCTUnwrap(url(for: "top_news_valid_response.json"))
+        let url = try XCTUnwrap(url(for: MockDataFileNames.topNewsValidResponse))
         let data = try Data(contentsOf: url)
         let response = try sut.decode(data)
 
@@ -52,7 +52,7 @@ class TopNewsRequestTests: XCTestCase {
 
     func testDecode_WithErrorResponse() {
         do {
-            let url = try XCTUnwrap(url(for: "error_response.json"))
+            let url = try XCTUnwrap(url(for: MockDataFileNames.errorResponse))
             let data = try Data(contentsOf: url)
 
             _ = try sut.decode(data)
