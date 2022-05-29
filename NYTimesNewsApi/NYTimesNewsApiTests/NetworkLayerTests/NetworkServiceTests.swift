@@ -171,7 +171,7 @@ class NetworkServiceTests: XCTestCase {
     }
 
     func testRequest_FailedToBuildUrlWithMalformedUrl() {
-        let request = TopNewsRequest(url: "\\ewrewre")
+        let request = TopNewsRequest(url: "\\malformed")
         let expectation = self.expectation(description: "URL Error scenario")
         let sut = NetworkService()
 
