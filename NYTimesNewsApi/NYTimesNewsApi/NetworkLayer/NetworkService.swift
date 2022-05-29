@@ -60,23 +60,19 @@ final class NetworkService: NetworkServiceProtocol {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.allHTTPHeaderFields = request.headers
-
         session.dataTask(with: urlRequest) { (data, response, error) in
             if let error = error {
                 return completion(.failure(error))
             }
-
             guard let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
                 let internalServerError = 500
                 let statusCode = (response as? HTTPURLResponse)?.statusCode ?? internalServerError
                 let httpError = NSError(domain: "HttpError", code: statusCode, userInfo: nil)
                 return completion(.failure(httpError))
             }
-
             guard let data = data else {
                 return completion(.failure(NSError()))
             }
-
             do {
                 try completion(.success(request.decode(data)))
             } catch let error as NSError {
