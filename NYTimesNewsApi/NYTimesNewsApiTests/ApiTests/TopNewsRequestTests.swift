@@ -13,8 +13,8 @@ class TopNewsRequestTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-
-        sut = TopNewsRequest()
+        let configuration = Configuration(baseUrl: "https://test.api.nytimes.com", apiKey: "123456")
+        sut = TopNewsRequest(configuration: configuration)
     }
 
     override func tearDown() {

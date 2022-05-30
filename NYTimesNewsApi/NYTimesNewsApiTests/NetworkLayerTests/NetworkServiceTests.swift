@@ -9,8 +9,20 @@ import XCTest
 @testable import NYTimesNewsApi
 
 class NetworkServiceTests: XCTestCase {
+    var request: TopNewsRequest!
+
+    override func setUp() {
+        super.setUp()
+        let configuration = Configuration(baseUrl: "https://test.api.nytimes.com", apiKey: "123456")
+        request = TopNewsRequest(configuration: configuration)
+    }
+
+    override func tearDown() {
+        request = nil
+        super.tearDown()
+    }
+
     func testRequest_SuccessfulScenario() throws {
-        let request = TopNewsRequest()
         let expectation = self.expectation(description: "Successful scenario")
         guard let mockResponseUrl = url(for: MockDataFileNames.topNewsValidResponse) else {
             XCTFail("\(MockDataFileNames.topNewsValidResponse) is not found")
@@ -39,7 +51,6 @@ class NetworkServiceTests: XCTestCase {
     }
 
     func testRequest_HttpError401() throws {
-        let request = TopNewsRequest()
         let expectation = self.expectation(description: "Http error 401 scenario")
         guard let mockResponseUrl = url(for: MockDataFileNames.errorResponse) else {
             XCTFail("\(MockDataFileNames.errorResponse) is not found")
@@ -68,7 +79,6 @@ class NetworkServiceTests: XCTestCase {
     }
 
     func testRequest_FailedWith_NSURLErrorTimedOut() {
-        let request = TopNewsRequest()
         let expectation = self.expectation(description: "NSURLErrorTimedOut scenario")
 
         guard let url = URL(string: request.url) else {
@@ -95,7 +105,6 @@ class NetworkServiceTests: XCTestCase {
     }
 
     func testRequest_FailedWithParsingError() throws {
-        let request = TopNewsRequest()
         let expectation = self.expectation(description: "Parsing Error scenario")
         guard let mockResponseUrl = url(for: MockDataFileNames.errorResponse) else {
             XCTFail("\(MockDataFileNames.errorResponse) is not found")
@@ -123,7 +132,6 @@ class NetworkServiceTests: XCTestCase {
     }
 
     func testRequest_FailedWithNoDataFound() throws {
-        let request = TopNewsRequest()
         let expectation = self.expectation(description: "No data found scenario")
         guard let url = URL(string: request.url) else {
             XCTFail("TopNewsRequest URL is nil")
@@ -146,7 +154,6 @@ class NetworkServiceTests: XCTestCase {
     }
 
     func testRequest_FailedDueToHttpResponseIsNil() throws {
-        let request = TopNewsRequest()
         let expectation = self.expectation(description: "HTTPURLResponse nil scenario")
         let mockUrlSession = MockUrlSession()
         let dataTask = MockUrlSessionDataTask(data: nil,
@@ -171,7 +178,6 @@ class NetworkServiceTests: XCTestCase {
     }
 
     func testRequest_FailedToBuildUrlWithMalformedUrl() {
-        var request = TopNewsRequest()
         request.url = "\\malformed"
         let expectation = self.expectation(description: "URL Error scenario")
         let sut = NetworkService()

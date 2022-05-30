@@ -32,6 +32,8 @@
 		6C4C27A42843F671007D35FB /* DataRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27A32843F671007D35FB /* DataRequestTests.swift */; };
 		6C4C27A62843F90B007D35FB /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27A52843F90B007D35FB /* NetworkServiceError.swift */; };
 		6C4C27A8284406D0007D35FB /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27A7284406D0007D35FB /* Section.swift */; };
+		6C4C27AA284409B4007D35FB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27A9284409B4007D35FB /* Configuration.swift */; };
+		6C4C27AC28440AA7007D35FB /* NewsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4C27AB28440AA7007D35FB /* NewsApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		6C4C27A32843F671007D35FB /* DataRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestTests.swift; sourceTree = "<group>"; };
 		6C4C27A52843F90B007D35FB /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		6C4C27A7284406D0007D35FB /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		6C4C27A9284409B4007D35FB /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		6C4C27AB28440AA7007D35FB /* NewsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsApiService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 				6C4C278D2843CEE5007D35FB /* NetworkLayer */,
 				6C4C275228438F2A007D35FB /* Models */,
 				6C4C2736284381B3007D35FB /* NYTimesNewsApi.h */,
+				6C4C27AB28440AA7007D35FB /* NewsApiService.swift */,
 				6C4C2737284381B3007D35FB /* NYTimesNewsApi.docc */,
 			);
 			path = NYTimesNewsApi;
@@ -208,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				6C4C278E2843CF3D007D35FB /* TopNewsRequest.swift */,
+				6C4C27A9284409B4007D35FB /* Configuration.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -356,6 +362,8 @@
 				6C4C278C2843CC6A007D35FB /* DataRequest.swift in Sources */,
 				6C4C27882843CA3C007D35FB /* HTTPMethod.swift in Sources */,
 				6C4C277F2843A7C5007D35FB /* TopNewsResponse.swift in Sources */,
+				6C4C27AA284409B4007D35FB /* Configuration.swift in Sources */,
+				6C4C27AC28440AA7007D35FB /* NewsApiService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
