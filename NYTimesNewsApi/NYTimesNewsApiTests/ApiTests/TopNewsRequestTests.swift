@@ -10,10 +10,11 @@ import XCTest
 
 class TopNewsRequestTests: XCTestCase {
     var sut: TopNewsRequest!
+    var configuration: Configuration!
 
     override func setUp() {
         super.setUp()
-        let configuration = Configuration(baseUrl: "https://test.api.nytimes.com", apiKey: "123456")
+        configuration = Configuration(baseUrl: "https://test.api.nytimes.com", apiKey: "123456")
         sut = TopNewsRequest(configuration: configuration)
     }
 
@@ -29,7 +30,13 @@ class TopNewsRequestTests: XCTestCase {
     func testUrl() {
         let url = sut.url
 
-        XCTAssertEqual(url, "https://api.nytimes.com/svc/topstories/v2/home.json")
+        XCTAssertEqual(url, "\(configuration.baseUrl)/svc/topstories/v2/\(Section.home).json")
+    }
+
+    func testUrl_WithSectionTech() {
+        sut = TopNewsRequest(configuration: configuration, section: Section.technology)
+
+        XCTAssertEqual(sut.url, "\(configuration.baseUrl)/svc/topstories/v2/\(Section.technology).json")
     }
 
     func testHeaders() {
@@ -39,7 +46,7 @@ class TopNewsRequestTests: XCTestCase {
     func testQueryParameters() {
         XCTAssertFalse(sut.queryItems.isEmpty)
         XCTAssertEqual(sut.queryItems.count, 1)
-        XCTAssertNotNil(sut.queryItems["apiKey"])
+        XCTAssertNotNil(sut.queryItems[QueryParameters.apiKey])
     }
 
     func testDecode() throws {

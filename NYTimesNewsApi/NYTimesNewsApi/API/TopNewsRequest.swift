@@ -8,8 +8,8 @@
 import Foundation
 
 struct TopNewsRequest: DataRequest, Configurable {
-    var url: String = "https://api.nytimes.com/svc/topstories/v2/home.json"
-    var queryItems: [String: String] = ["apiKey": "12345"]
+    var url: String
+    var queryItems: [String: String]
     typealias Response = TopNewsResponse
     let section: Section
     let baseUrl: String
@@ -19,5 +19,7 @@ struct TopNewsRequest: DataRequest, Configurable {
         self.baseUrl = configuration.baseUrl
         self.apiKey = configuration.apiKey
         self.section = section
+        self.url = "\(baseUrl)/svc/topstories/v2/\(section).json"
+        self.queryItems = [QueryParameters.apiKey: configuration.apiKey]
     }
 }
