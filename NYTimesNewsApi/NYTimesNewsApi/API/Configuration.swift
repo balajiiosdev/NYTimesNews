@@ -16,7 +16,7 @@ public struct Configuration: Configurable {
     public let baseUrl: String
     public let apiKey: String
 
-    init(baseUrl: String, apiKey: String) {
+    public init(baseUrl: String, apiKey: String) {
         self.baseUrl = baseUrl
         self.apiKey = apiKey
     }

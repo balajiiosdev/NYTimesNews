@@ -8,12 +8,12 @@
 import Foundation
 
 public struct TopNewsResponse: Codable {
-    let status: String
-    let copyright: String
-    let section: String
-    let lastUpdated: String
-    let numOfResults: Int
-    let results: [Article]
+    public let status: String
+    public let copyright: String
+    public let section: String
+    public let lastUpdated: String
+    public let numOfResults: Int
+    public let results: [Article]
 
     public init(from decoder: Decoder) throws {
         let map = try decoder.container(keyedBy: CodingKeys.self)
