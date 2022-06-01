@@ -8,25 +8,25 @@
 import Foundation
 
 public struct Article: Codable {
-    let section: String
-    let subsection: String
-    let title: String
-    let abstract: String
-    let url: String
-    let uri: String
-    let byline: String
-    let itemType: String
-    let updatedDate: String
-    let createdDate: String
-    let publishedDate: String
-    let materialTypeFacet: String
-    let kicker: String
-    let shortUrl: String
-    let desFacet: [String]
-    let orgFacet: [String]
-    let perFacet: [String]
-    let geoFacet: [String]
-    let multimediaItems: [MultiMediaItem]
+    public let section: String
+    public let subsection: String
+    public let title: String
+    public let abstract: String
+    public let url: String
+    public let uri: String
+    public let byline: String
+    public let itemType: String
+    public let updatedDate: String
+    public let createdDate: String
+    public let publishedDate: String
+    public let materialTypeFacet: String
+    public let kicker: String
+    public let shortUrl: String
+    public let desFacet: [String]
+    public let orgFacet: [String]
+    public let perFacet: [String]
+    public let geoFacet: [String]
+    public let multimediaItems: [MultiMediaItem]
 
     public init(from decoder: Decoder) throws {
         let map = try decoder.container(keyedBy: CodingKeys.self)
