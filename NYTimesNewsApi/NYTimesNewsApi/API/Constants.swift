@@ -8,5 +8,5 @@
 import Foundation
 
 enum QueryParameters {
-    static let apiKey = "apiKey"
+    static let apiKey = "api-key"
 }
