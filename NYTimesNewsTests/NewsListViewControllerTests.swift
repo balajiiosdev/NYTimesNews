@@ -29,7 +29,7 @@ class NewsListViewControllerTests: XCTestCase {
     }
 
     func testViewDidLoad() {
-        sut.viewDidLoad()
+        sut.loadViewIfNeeded()
 
         XCTAssertEqual(mockInteractor.fetchTopNewsCalledCount, 1)
     }
