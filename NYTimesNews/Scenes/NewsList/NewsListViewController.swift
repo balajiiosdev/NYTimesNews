@@ -10,7 +10,8 @@ import NYTimesNewsApi
 
 protocol NewsListDisplayLogic: AnyObject {
     func displayTopNews(viewModel: NewsList.TopNews.ViewModel)
-    func displayErrorAlert(title: String, message: String)
+    func displayErrorAlert(title: String?, message: String?)
+    func displayToast(message: String)
 }
 
 class NewsListViewController: UIViewController {
@@ -59,6 +60,9 @@ extension NewsListViewController: NewsListDisplayLogic {
     func displayTopNews(viewModel: NewsList.TopNews.ViewModel) {
     }
 
-    func displayErrorAlert(title: String, message: String) {
+    func displayErrorAlert(title: String?, message: String?) {
+    }
+
+    func displayToast(message: String) {
     }
 }

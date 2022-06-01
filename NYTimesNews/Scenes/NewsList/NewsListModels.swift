@@ -20,10 +20,20 @@ enum NewsList {
             let topNews: TopNewsResponse
         }
         struct ViewModel {
-            let articles: [Article]
+            let articles: [ArticleModel]
             let copyright: String
             let lastUpdatedDate: String
         }
         // swiftlint:enable nesting
     }
+}
+
+struct ArticleModel {
+    let title: String
+    let author: String
+    let mediaItem: MediaItem
+}
+
+struct MediaItem {
+    let url: URL
 }

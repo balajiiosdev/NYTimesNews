@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  NYTimesNews
+
+  Created by Balaji V on 6/1/22.
+  
+*/
+
+"server_unavailable_message" = "Server is unavailable. Please try again.";
+"something_went_wrong" = "Something went wrong";
