@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum NetworkServiceError: Error {
+public enum NetworkServiceError: Error {
     case noDataFound
     case malformedUrl
     case unknown
 }
 
-enum HttpError: Int, Error {
+public enum HttpError: Int, Error {
     case badRequest = 400
     case unauthorized = 401
     case paymentRequired = 402
