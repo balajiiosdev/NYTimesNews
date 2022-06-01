@@ -10,7 +10,7 @@ import XCTest
 
 class AppConstantsTests: XCTestCase {
     func testBaseUrl() {
-        XCTAssertEqual(AppConstants.baseUrl, "https://api.nytimes.com/")
+        XCTAssertEqual(AppConstants.baseUrl, "https://api.nytimes.com")
     }
 
     func testAPIKey() {
