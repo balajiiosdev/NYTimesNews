@@ -34,6 +34,8 @@
 		6CE86F7B28473645004D5AA5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6CE86F7D28473645004D5AA5 /* Localizable.strings */; };
 		6CE86F7F284739CB004D5AA5 /* MockNewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE86F7E284739CB004D5AA5 /* MockNewsListViewController.swift */; };
 		6CE86F8128473B4C004D5AA5 /* NewsListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE86F8028473B4C004D5AA5 /* NewsListPresenterTests.swift */; };
+		6CE86F8328474DD8004D5AA5 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE86F8228474DD8004D5AA5 /* NewsTableViewCell.swift */; };
+		6CE86FF22847CD3C004D5AA5 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6CE86FF12847CD3C004D5AA5 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,7 @@
 		6CE86F7C28473645004D5AA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6CE86F7E284739CB004D5AA5 /* MockNewsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNewsListViewController.swift; sourceTree = "<group>"; };
 		6CE86F8028473B4C004D5AA5 /* NewsListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListPresenterTests.swift; sourceTree = "<group>"; };
+		6CE86F8228474DD8004D5AA5 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CE86FF22847CD3C004D5AA5 /* SDWebImage in Frameworks */,
 				6C80823F28448AFB001943F7 /* NYTimesNewsApi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,6 +208,7 @@
 				6C8082642845B4AE001943F7 /* NewsListRouter.swift */,
 				6C8082652845B4AE001943F7 /* NewsListModels.swift */,
 				6C8082662845B4AE001943F7 /* NewsListViewController.swift */,
+				6CE86F8228474DD8004D5AA5 /* NewsTableViewCell.swift */,
 				6C8082672845B4AE001943F7 /* NewsListInteractor.swift */,
 			);
 			path = NewsList;
@@ -255,6 +260,9 @@
 			dependencies = (
 			);
 			name = NYTimesNews;
+			packageProductDependencies = (
+				6CE86FF12847CD3C004D5AA5 /* SDWebImage */,
+			);
 			productName = NYTimesNews;
 			productReference = 6C0901EB2840C6A1002B1243 /* NYTimesNews.app */;
 			productType = "com.apple.product-type.application";
@@ -327,6 +335,9 @@
 				Base,
 			);
 			mainGroup = 6C0901E22840C6A1002B1243;
+			packageReferences = (
+				6CE86FF02847CD3C004D5AA5 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 6C0901EC2840C6A1002B1243 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -395,6 +406,7 @@
 			files = (
 				6C0901F32840C6A1002B1243 /* ViewController.swift in Sources */,
 				6C80826D2845B4AE001943F7 /* NewsListInteractor.swift in Sources */,
+				6CE86F8328474DD8004D5AA5 /* NewsTableViewCell.swift in Sources */,
 				6C0901EF2840C6A1002B1243 /* AppDelegate.swift in Sources */,
 				6C0901F12840C6A1002B1243 /* SceneDelegate.swift in Sources */,
 				6C80826A2845B4AE001943F7 /* NewsListRouter.swift in Sources */,
@@ -776,6 +788,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6CE86FF02847CD3C004D5AA5 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6CE86FF12847CD3C004D5AA5 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CE86FF02847CD3C004D5AA5 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6C0901E32840C6A1002B1243 /* Project object */;
 }
