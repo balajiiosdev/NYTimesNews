@@ -19,6 +19,7 @@ class NewsListViewController: UIViewController {
     var router: (NSObjectProtocol & NewsListRoutingLogic & NewsListDataPassing)?
     var viewModel: NewsList.TopNews.ViewModel?
     var tableView: UITableView!
+    let cellIdentifier = "newsCell"
 
     // MARK: Initialisers
     required init?(coder aDecoder: NSCoder) {
@@ -49,14 +50,14 @@ class NewsListViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = NSLocalizedString("top_news_title", comment: "")
         addTableView()
-        fetchTopNews()
+        fetchTopNews(section: .home)
     }
 
     private func addTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         view.addSubview(tableView)
         addConstraintsToTableView()
     }
@@ -71,7 +72,7 @@ class NewsListViewController: UIViewController {
 
     // MARK: Top News
 
-    func fetchTopNews(section: Section = .home) {
+    func fetchTopNews(section: Section) {
         let request = NewsList.TopNews.Request(section: section)
         interactor?.fetchTopNews(request: request)
     }
@@ -102,10 +103,17 @@ extension NewsListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = viewModel?.articles[indexPath.row].title
-        cell.detailTextLabel?.text = viewModel?.articles[indexPath.row].author
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        (cell as? NewsTableViewCell)?.article = viewModel?.articles[indexPath.row]
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 
