@@ -7,10 +7,35 @@
 
 import Foundation
 
-public enum MediaItemFormat: String, Codable {
-    case superJumbo = "Super Jumbo"
-    case threeByTwoSmallAt2X = "threeByTwoSmallAt2X"
-    case largeThumbnail = "Large Thumbnail"
+public enum MediaItemFormat: Codable {
+    case superJumbo
+    case threeByTwoSmallAt2X
+    case largeThumbnail
+    case unknown(value: String)
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let status = try? container.decode(String.self)
+        switch status {
+        case "Super Jumbo": self = .superJumbo
+        case "threeByTwoSmallAt2X" : self = .threeByTwoSmallAt2X
+        case "Large Thumbnail": self = .largeThumbnail
+        default:
+            self = .unknown(value: status ?? "unknown")
+        }
+    }
+}
+
+extension MediaItemFormat: Comparable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case (.superJumbo, .superJumbo): return true
+        case (.threeByTwoSmallAt2X, .threeByTwoSmallAt2X): return true
+        case (.largeThumbnail, .largeThumbnail): return true
+        case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
+        default: return false
+        }
+    }
 }
 
 public struct MultiMediaItem: Codable {
