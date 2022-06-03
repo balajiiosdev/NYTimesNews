@@ -12,7 +12,8 @@ class NewsTableViewCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.customFont(forTextStyle: .title3)
         label.textColor = UIColor.black
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -22,7 +23,8 @@ class NewsTableViewCell: UITableViewCell {
     let authorLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.italicSystemFont(ofSize: 12)
+        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.customFont(forTextStyle: .caption1)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.textColor = .systemGray
