@@ -31,7 +31,7 @@ enum NewsList {
 struct ArticleModel {
     let title: String
     let author: String
-    let mediaItem: MediaItem
+    let thumbnail: MediaItem?
 }
 
 struct MediaItem {

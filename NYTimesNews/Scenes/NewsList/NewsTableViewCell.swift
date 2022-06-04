@@ -44,7 +44,7 @@ class NewsTableViewCell: UITableViewCell {
         didSet {
             titleLabel.text = article?.title
             authorLabel.text = article?.author
-            guard let url = article?.mediaItem.url else { return }
+            guard let url = article?.thumbnail?.url else { return }
             thumbnailImage.sd_setImage(with: url) { [weak self] image, _, _, _ in
                 self?.thumbnailImage.image = image
             }
