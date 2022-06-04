@@ -17,6 +17,7 @@ class NewsTableViewCell: UITableViewCell {
         label.textColor = UIColor.label
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        label.accessibilityLabel = "News Heading"
         return label
     }()
 
@@ -28,6 +29,7 @@ class NewsTableViewCell: UITableViewCell {
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.textColor = .systemGray
+        label.accessibilityLabel = "Author"
         return label
     }()
 
@@ -37,6 +39,7 @@ class NewsTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
         imageView.clipsToBounds = true
+        imageView.accessibilityLabel = "Graphic"
         return imageView
     }()
 
@@ -94,5 +97,14 @@ class NewsTableViewCell: UITableViewCell {
                                      authorLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
                                      authorLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
                                     ])
+    }
+
+    // MARK: Accessbility
+
+    override var accessibilityElements: [Any]? {
+        get { [titleLabel as Any, authorLabel as Any, thumbnailImage as Any] }
+        set {
+            self.accessibilityElements = newValue
+        }
     }
 }

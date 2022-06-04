@@ -137,14 +137,17 @@ class NewsDetailViewController: UIViewController {
 
     private func addTitle() {
         stackView.addArrangedSubview(titleLabel)
+        titleLabel.accessibilityLabel = "Title"
     }
 
     private func addAuthor() {
         stackView.addArrangedSubview(authorLabel)
+        authorLabel.accessibilityLabel = "Author"
     }
 
     private func addImage() {
         stackView.addArrangedSubview(imageView)
+        imageView.accessibilityLabel = "Graphic"
         let imageHeight = 300.0
         let viewLayoutGuide = stackView.layoutMarginsGuide
         NSLayoutConstraint.activate([
@@ -155,10 +158,12 @@ class NewsDetailViewController: UIViewController {
 
     private func addDescription() {
         stackView.addArrangedSubview(descriptionLabel)
+        descriptionLabel.accessibilityLabel = "Description"
     }
 
     private func addSeeMoreButton() {
-        seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        seeMoreButton.accessibilityLabel = "See More"
+         seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(seeMoreButton)
         let seeMoreButtonTopSpace = 10.0
         NSLayoutConstraint.activate([
@@ -189,6 +194,16 @@ class NewsDetailViewController: UIViewController {
     private func fetchNewsDetails() {
         let request = NewsDetail.Request()
         interactor?.fetchNewsDetails(request: request)
+    }
+
+    // MARK: Accessbility
+
+    override var accessibilityElements: [Any]? {
+        get { [titleLabel as Any, authorLabel as Any, imageView as Any,
+               descriptionLabel as Any, seeMoreButton as Any] }
+        set {
+            self.accessibilityElements = newValue
+        }
     }
 }
 
