@@ -14,7 +14,7 @@ class NewsTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.customFont(forTextStyle: .title3)
-        label.textColor = UIColor.black
+        label.textColor = UIColor.label
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         return label
