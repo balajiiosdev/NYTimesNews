@@ -35,7 +35,7 @@ class NewsTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 7
+        imageView.layer.cornerRadius = 5
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -51,22 +51,27 @@ class NewsTableViewCell: UITableViewCell {
         }
     }
 
+    // MARK: Initialisers
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(titleLabel)
         addSubview(authorLabel)
         addSubview(thumbnailImage)
         setupUI()
+        selectionStyle = .none
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
+    // MARK: UI Setup
+
     func setupUI() {
         let topPadding = 10.0
-        let imageWidth = 70.0
-        let imageHeight = 70.0
+        let imageWidth = 100.0
+        let imageHeight = 100.0
         let imageTrailingSpace = -10.0
         let titleLeadingSpace = 10.0
         let titleTrailingSpace = -10.0
