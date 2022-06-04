@@ -20,13 +20,7 @@ class NewsListPresenter: NewsListPresentationLogic {
     func presentTopNews(response: NewsList.TopNews.Response) {
         let topNews = response.topNews
         let articles = topNews.results.compactMap { article -> ArticleModel? in
-            let thumbnail = article.multimediaItems.first {
-                $0.format == .largeThumbnail
-            }
-            guard let urlString = thumbnail?.url,
-                  let url = URL(string: urlString) else { return nil }
-            let media = MediaItem(url: url)
-            return ArticleModel(title: article.title, author: article.byline, mediaItem: media)
+            return createArticleModel(article: article)
         }
 
         let viewModel = NewsList.TopNews.ViewModel(articles: articles,
@@ -41,6 +35,21 @@ class NewsListPresenter: NewsListPresentationLogic {
         } else {
             showDefaultError()
         }
+    }
+
+    private func createArticleModel(article: Article) -> ArticleModel? {
+        let thumbnailMediaItem = article.multimediaItems.first {
+            $0.format == .largeThumbnail
+        }
+        guard let urlString = thumbnailMediaItem?.url,
+              let url = URL(string: urlString) else {
+                  return nil
+              }
+        let thumbnail = MediaItem(url: url)
+        let model = ArticleModel(title: article.title,
+                                 author: article.byline,
+                                 thumbnail: thumbnail)
+        return model
     }
 
     private func handleHttpError(_ error: HttpError) {
