@@ -20,6 +20,7 @@
 		6C427207284AE9C50022E337 /* NewsDetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C427201284AE9C50022E337 /* NewsDetailModels.swift */; };
 		6C427208284AE9C50022E337 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C427202284AE9C50022E337 /* NewsDetailViewController.swift */; };
 		6C427209284AE9C50022E337 /* NewsDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C427203284AE9C50022E337 /* NewsDetailInteractor.swift */; };
+		6C42720F284BEEDB0022E337 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 6C42720E284BEEDB0022E337 /* MBProgressHUD */; };
 		6C80823F28448AFB001943F7 /* NYTimesNewsApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C80823E28448AFB001943F7 /* NYTimesNewsApi.framework */; };
 		6C80824028448AFB001943F7 /* NYTimesNewsApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C80823E28448AFB001943F7 /* NYTimesNewsApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6C8082682845B4AE001943F7 /* NewsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8082622845B4AE001943F7 /* NewsListPresenter.swift */; };
@@ -158,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C42720F284BEEDB0022E337 /* MBProgressHUD in Frameworks */,
 				6CE86FF22847CD3C004D5AA5 /* SDWebImage in Frameworks */,
 				6C80823F28448AFB001943F7 /* NYTimesNewsApi.framework in Frameworks */,
 			);
@@ -382,6 +384,7 @@
 			name = NYTimesNews;
 			packageProductDependencies = (
 				6CE86FF12847CD3C004D5AA5 /* SDWebImage */,
+				6C42720E284BEEDB0022E337 /* MBProgressHUD */,
 			);
 			productName = NYTimesNews;
 			productReference = 6C0901EB2840C6A1002B1243 /* NYTimesNews.app */;
@@ -457,6 +460,7 @@
 			mainGroup = 6C0901E22840C6A1002B1243;
 			packageReferences = (
 				6CE86FF02847CD3C004D5AA5 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				6C42720D284BEEDB0022E337 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 			);
 			productRefGroup = 6C0901EC2840C6A1002B1243 /* Products */;
 			projectDirPath = "";
@@ -934,6 +938,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6C42720D284BEEDB0022E337 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jdg/MBProgressHUD";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		6CE86FF02847CD3C004D5AA5 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
@@ -945,6 +957,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6C42720E284BEEDB0022E337 /* MBProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C42720D284BEEDB0022E337 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
+			productName = MBProgressHUD;
+		};
 		6CE86FF12847CD3C004D5AA5 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6CE86FF02847CD3C004D5AA5 /* XCRemoteSwiftPackageReference "SDWebImage" */;

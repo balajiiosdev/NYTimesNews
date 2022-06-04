@@ -7,6 +7,7 @@
 
 import UIKit
 import NYTimesNewsApi
+import MBProgressHUD
 
 protocol NewsListDisplayLogic: AnyObject {
     func displayTopNews(viewModel: NewsList.TopNews.ViewModel)
@@ -85,8 +86,21 @@ class NewsListViewController: UIViewController {
     // MARK: Top News
 
     func fetchTopNews(section: Section) {
+        if refreshControl.isRefreshing == false {
+            showSpinner()
+        }
         let request = NewsList.TopNews.Request(section: section)
         interactor?.fetchTopNews(request: request)
+    }
+
+    // MARK: Loading Progress
+
+    func showSpinner() {
+        MBProgressHUD.showAdded(to: view, animated: true)
+    }
+
+    func hideSpinner() {
+        MBProgressHUD.hide(for: view, animated: true)
     }
 }
 
@@ -94,6 +108,7 @@ extension NewsListViewController: NewsListDisplayLogic {
     func displayTopNews(viewModel: NewsList.TopNews.ViewModel) {
         self.viewModel = viewModel
         DispatchQueue.main.async {
+            self.hideSpinner()
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
         }
@@ -103,6 +118,8 @@ extension NewsListViewController: NewsListDisplayLogic {
         DispatchQueue.main.async {[weak self] in
             if self?.refreshControl.isRefreshing == true {
                 self?.refreshControl.endRefreshing()
+            } else {
+                self?.hideSpinner()
             }
         }
     }
@@ -111,6 +128,8 @@ extension NewsListViewController: NewsListDisplayLogic {
         DispatchQueue.main.async {[weak self] in
             if self?.refreshControl.isRefreshing == true {
                 self?.refreshControl.endRefreshing()
+            } else {
+                self?.hideSpinner()
             }
         }
     }

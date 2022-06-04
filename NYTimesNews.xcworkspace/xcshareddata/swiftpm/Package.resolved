@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "MBProgressHUD",
+        "repositoryURL": "https://github.com/jdg/MBProgressHUD",
+        "state": {
+          "branch": "master",
+          "revision": "c843e4c86d320a11552898646effa8000042ab16",
+          "version": null
+        }
+      },
+      {
         "package": "SDWebImage",
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage",
         "state": {
