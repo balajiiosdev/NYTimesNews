@@ -20,6 +20,7 @@ class NewsListViewController: UIViewController {
     var viewModel: NewsList.TopNews.ViewModel?
     var tableView: UITableView!
     let cellIdentifier = "newsCell"
+    let refreshControl = UIRefreshControl()
 
     // MARK: Initialisers
     required init?(coder aDecoder: NSCoder) {
@@ -50,6 +51,7 @@ class NewsListViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = NSLocalizedString("top_news_title", comment: "")
         addTableView()
+        addPullToRefreshView()
         fetchTopNews(section: .home)
     }
 
@@ -62,12 +64,22 @@ class NewsListViewController: UIViewController {
         addConstraintsToTableView()
     }
 
+    func addPullToRefreshView() {
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+
     private func addConstraintsToTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+
+    @objc private func refresh() {
+        fetchTopNews(section: .home)
     }
 
     // MARK: Top News
@@ -83,13 +95,24 @@ extension NewsListViewController: NewsListDisplayLogic {
         self.viewModel = viewModel
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
 
     func displayErrorAlert(title: String?, message: String?) {
+        DispatchQueue.main.async {[weak self] in
+            if self?.refreshControl.isRefreshing == true {
+                self?.refreshControl.endRefreshing()
+            }
+        }
     }
 
     func displayToast(message: String) {
+        DispatchQueue.main.async {[weak self] in
+            if self?.refreshControl.isRefreshing == true {
+                self?.refreshControl.endRefreshing()
+            }
+        }
     }
 }
 
