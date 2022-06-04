@@ -9,3 +9,5 @@
 "top_news_title" = "Top News";
 "server_unavailable_message" = "Server is unavailable. Please try again.";
 "something_went_wrong" = "Something went wrong";
+"see_more_button" = "See more";
+"news_details" = "Details";

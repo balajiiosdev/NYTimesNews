@@ -20,6 +20,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="iYj-Zw-qGt"/>
+                    <connections>
+                        <segue destination="vDz-Vr-dFf" kind="show" identifier="ShowDetails" id="7KJ-aW-jOu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M8v-Ez-bCp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,6 +45,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4HB-9E-ccN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1037.68115942029" y="108.48214285714285"/>
+        </scene>
+        <!--News Detail View Controller-->
+        <scene sceneID="CkJ-0E-IEy">
+            <objects>
+                <viewController storyboardIdentifier="NewsDetailViewController" id="vDz-Vr-dFf" customClass="NewsDetailViewController" customModule="NYTimesNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MlF-BJ-yVY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="tFa-bg-aqK"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="s97-ss-kRZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hzJ-co-kC1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2828.985507246377" y="107.8125"/>
         </scene>
     </scenes>
     <resources>

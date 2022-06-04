@@ -22,5 +22,16 @@ class NewsListRouter: NSObject, NewsListRoutingLogic, NewsListDataPassing {
     // MARK: Routing
 
     func routeToNewsDetailView(at index: Int) {
+        let article = dataStore?.articles[index]
+        let storyboard = viewController?.storyboard
+        let identifier = "NewsDetailViewController"
+        guard let detailsVC = storyboard?.instantiateViewController(withIdentifier:
+                                                                        identifier) as? NewsDetailViewController,
+              let router = detailsVC.router else {
+            return
+        }
+        var destinationDS = router.dataStore
+        destinationDS?.article = article
+        viewController?.show(detailsVC, sender: nil)
     }
 }
