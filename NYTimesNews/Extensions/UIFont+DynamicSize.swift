@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 let customFonts: [UIFont.TextStyle: UIFont] = [
-    .largeTitle: UIFont(name: "Lato-Regular", size: 34) ?? UIFont.preferredFont(forTextStyle: .largeTitle),
-    .title1: UIFont(name: "Lato-Regular", size: 28) ?? UIFont.preferredFont(forTextStyle: .title1),
-    .title2: UIFont(name: "Lato-Regular", size: 22) ?? UIFont.preferredFont(forTextStyle: .title2),
+    .largeTitle: UIFont(name: "Lato-Bold", size: 34) ?? UIFont.preferredFont(forTextStyle: .largeTitle),
+    .title1: UIFont(name: "Lato-Bold", size: 28) ?? UIFont.preferredFont(forTextStyle: .title1),
+    .title2: UIFont(name: "Lato-Bold", size: 22) ?? UIFont.preferredFont(forTextStyle: .title2),
     .title3: UIFont(name: "Lato-Bold", size: 20) ?? UIFont.preferredFont(forTextStyle: .title3),
     .headline: UIFont(name: "Lato-Bold", size: 17) ?? UIFont.preferredFont(forTextStyle: .headline),
     .body: UIFont(name: "Lato-Regular", size: 17) ?? UIFont.preferredFont(forTextStyle: .body),
