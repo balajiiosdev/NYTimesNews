@@ -33,7 +33,12 @@ class NewsListPresenter: NewsListPresentationLogic {
         if let httpError = error as? HttpError {
             handleHttpError(httpError)
         } else {
-            showDefaultError()
+            let nsError = error as NSError
+            if nsError.code == NSURLErrorNotConnectedToInternet {
+                showNoInternetError()
+            } else {
+                showDefaultError()
+            }
         }
     }
 
@@ -54,16 +59,23 @@ class NewsListPresenter: NewsListPresentationLogic {
 
     private func handleHttpError(_ error: HttpError) {
         if error == .serviceUnavailable || error == .internalServerError {
-            let message = NSLocalizedString("server_unavailable_message",
-                                            comment: "")
-            viewController?.displayToast(message: message)
+            let message = NSLocalizedString("server_unavailable_message", comment: "")
+            let title = NSLocalizedString("error_occured", comment: "")
+            viewController?.displayErrorAlert(title: title, message: message)
         } else {
             showDefaultError()
         }
     }
 
     private func showDefaultError() {
+        let title = NSLocalizedString("error_occured", comment: "")
         let message = NSLocalizedString("something_went_wrong", comment: "")
-        viewController?.displayErrorAlert(title: message, message: nil)
+        viewController?.displayErrorAlert(title: title, message: message)
+    }
+
+    private func showNoInternetError() {
+        let title = NSLocalizedString("no_internet_connection_title", comment: "")
+        let message = NSLocalizedString("no_internet_connection_message", comment: "")
+        viewController?.displayErrorAlert(title: title, message: message)
     }
 }

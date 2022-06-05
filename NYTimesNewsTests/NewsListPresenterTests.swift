@@ -43,15 +43,17 @@ class NewsListPresenterTests: XCTestCase {
     func testPresentError_InternalServerError() {
         sut.presentError(error: HttpError.internalServerError)
 
-        XCTAssertEqual(mockViewController.displayToastCalledCount, 1)
-        XCTAssertEqual(mockViewController.toastMessage, NSLocalizedString("server_unavailable_message", comment: ""))
+        XCTAssertEqual(mockViewController.displayErrorAlertCalledCount, 1)
+        XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("error_occured", comment: ""))
+        XCTAssertEqual(mockViewController.alertMessage, NSLocalizedString("server_unavailable_message", comment: ""))
     }
 
     func testPresentError_NoDataFound() {
         sut.presentError(error: NetworkServiceError.noDataFound)
 
         XCTAssertEqual(mockViewController.displayErrorAlertCalledCount, 1)
-        XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("something_went_wrong", comment: ""))
+        XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("error_occured", comment: ""))
+        XCTAssertEqual(mockViewController.alertMessage, NSLocalizedString("something_went_wrong", comment: ""))
     }
 
     func testPresentError_RequestTimedOut() {
@@ -59,7 +61,8 @@ class NewsListPresenterTests: XCTestCase {
         sut.presentError(error: timedOutError)
 
         XCTAssertEqual(mockViewController.displayErrorAlertCalledCount, 1)
-        XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("something_went_wrong", comment: ""))
+        XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("error_occured", comment: ""))
+        XCTAssertEqual(mockViewController.alertMessage, NSLocalizedString("something_went_wrong", comment: ""))
     }
 
     private func topNewsResponse() -> TopNewsResponse? {

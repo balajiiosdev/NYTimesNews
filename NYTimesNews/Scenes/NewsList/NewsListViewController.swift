@@ -12,7 +12,6 @@ import MBProgressHUD
 protocol NewsListDisplayLogic: AnyObject {
     func displayTopNews(viewModel: NewsList.TopNews.ViewModel)
     func displayErrorAlert(title: String?, message: String?)
-    func displayToast(message: String)
 }
 
 class NewsListViewController: UIViewController {
@@ -123,16 +122,10 @@ extension NewsListViewController: NewsListDisplayLogic {
             } else {
                 self?.hideSpinner()
             }
-        }
-    }
-
-    func displayToast(message: String) {
-        DispatchQueue.main.async {[weak self] in
-            if self?.refreshControl.isRefreshing == true {
-                self?.refreshControl.endRefreshing()
-            } else {
-                self?.hideSpinner()
-            }
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okTitle = NSLocalizedString("alert_action_ok", comment: "")
+            alert.addAction(UIAlertAction(title: okTitle, style: .cancel, handler: nil))
+            self?.present(alert, animated: true)
         }
     }
 }

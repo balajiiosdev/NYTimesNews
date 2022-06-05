@@ -8,6 +8,10 @@
 
 "top_news_title" = "Top News";
 "server_unavailable_message" = "Server is unavailable. Please try again.";
-"something_went_wrong" = "Something went wrong";
+"something_went_wrong" = "Something went wrong. Please try again.";
 "see_more_button" = "See more";
 "news_details" = "Details";
+"alert_action_ok" = "Ok";
+"error_occured" = "Error occured";
+"no_internet_connection_title" = "No Internet";
+"no_internet_connection_message" = "Unable to connect to server. Please check your internet connection.";
