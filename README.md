@@ -2,7 +2,7 @@
 
 ## Summary
 
-  Shows Top news from New York Times server
+Shows Top news from New York Times server
 
 ## Design
 
@@ -19,22 +19,26 @@ Clean Swift architecture is chosen for the view implementations. It enables the 
 
 ### Detailed Class diagram
 
-```plantuml
-!include ./Design-HLD.iuml
-```
+![Detailed Class diagram](./HLD.png)
 
 ## Screenshots
 
-![Top News](Screenshots/NewsList.png)
-![News Details](./Screenshots/NewsDetails.png)
+<img src="Screenshots/NewsList.png" width="200">
+<img src="Screenshots/NewsDetails.png" width="200">
+<img src="Screenshots/NewsList-DarkMode.png" width="200">
+<img src="Screenshots/NewsDetails-DarkMode.png" width="200">
+<img src="Screenshots/NewsList-LargerFontSize.png" width="200">
+<img src="Screenshots/NewsDetails-LargerFontSize.png" width="200">
+
 
 ## Thirdparty Depndencies
 
-| Name | Repo |
+| Name | Repository |
 | --- | --- |
-| SDWebImage | https://github.com/SDWebImage/SDWebImage |
-| MBProgressHUD | https://github.com/jdg/MBProgressHUD |
-| Reachability | https://github.com/ashleymills/Reachability.swift |
+| SDWebImage | <https://github.com/SDWebImage/SDWebImage> |
+| MBProgressHUD | <https://github.com/jdg/MBProgressHUD> |
+| Reachability | <https://github.com/ashleymills/Reachability.swift> |
+
 ## Validation
 
 Unit tests are covered the NewsList and NewsDetails classes and also NYTimesNewsApi framework classes.
