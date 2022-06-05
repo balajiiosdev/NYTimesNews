@@ -8,17 +8,23 @@
 import XCTest
 @testable import NYTimesNews
 import NYTimesNewsApi
+import Reachability
 
 class NewsListInteractorTests: XCTestCase {
     var sut: NewsListInteractor!
     var newsApiService: MockNewsApiService!
     var presenter: MockNewsListPresenter!
+    var mockReachability: MockReachability!
 
     override func setUp() {
         super.setUp()
         newsApiService = MockNewsApiService()
         presenter = MockNewsListPresenter()
+        mockReachability = MockReachability()
         sut = NewsListInteractor(newsApiService: newsApiService)
+        mockReachability.whenReachable = sut.reachability?.whenReachable
+        mockReachability.whenUnreachable = sut.reachability?.whenUnreachable
+        sut.reachability = mockReachability
         sut.presenter = presenter
     }
 
@@ -77,6 +83,40 @@ class NewsListInteractorTests: XCTestCase {
         } catch let error {
             XCTFail("Test failed with \(error.localizedDescription)")
         }
+    }
 
+    func testFetchTopNews_WhenNoInternet() {
+        mockReachability.connection = .unavailable
+
+        sut.fetchTopNews(request: NewsList.TopNews.Request(section: .arts))
+
+        XCTAssertEqual(newsApiService.fetchTopNewsCalledCount, 0)
+        XCTAssertEqual(sut.articles.count, 0)
+        XCTAssertEqual(presenter.presentErrorCalledCount, 1)
+        XCTAssertNil(presenter.topNewsResponse)
+        do {
+            let presenterError = try XCTUnwrap(presenter.topNewsError) as NSError
+            XCTAssertEqual(presenterError.code, NSURLErrorNotConnectedToInternet)
+        } catch let error {
+            XCTFail("Test failed with \(error.localizedDescription)")
+        }
+    }
+
+    func testReachability_WhenInternetBecomesAvailable() throws {
+        // given
+        mockReachability.connection = .unavailable
+        sut.fetchTopNews(request: NewsList.TopNews.Request(section: .science))
+        let reachability = try Reachability()
+
+        // when
+        mockReachability.connection = .wifi
+        mockReachability.whenReachable?(reachability)
+
+        // should
+        XCTAssertEqual(newsApiService.fetchTopNewsCalledCount, 1)
+        XCTAssertEqual(newsApiService.section, .science)
+        XCTAssertEqual(sut.articles.count, 36)
+        XCTAssertEqual(presenter.presentTopNewsCalledCount, 1)
+        XCTAssertNotNil(presenter.topNewsResponse)
     }
 }

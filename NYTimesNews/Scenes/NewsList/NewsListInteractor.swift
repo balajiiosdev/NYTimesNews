@@ -21,11 +21,12 @@ class NewsListInteractor: NewsListBusinessLogic, NewsListDataStore {
     var presenter: NewsListPresentationLogic?
     private let newsApiService: NewsApiService
     private(set) var articles: [Article] = []
-    var reachability: Reachability?
+    var reachability: Reachable?
     private var request: NewsList.TopNews.Request?
 
     init(newsApiService: NewsApiService) {
         self.newsApiService = newsApiService
+        reachability = try? Reachability()
         setupReachability()
     }
 
@@ -34,26 +35,22 @@ class NewsListInteractor: NewsListBusinessLogic, NewsListDataStore {
     }
 
     private func setupReachability() {
-        do {
-            reachability = try Reachability()
-            reachability?.whenReachable = { [weak self] _ in
-                NSLog("Reachable to internet")
-                guard let previousRequest = self?.request else {
-                    return
-                }
-                self?.fetchTopNews(request: previousRequest)
+        reachability?.whenReachable = { [weak self] _ in
+            NSLog("Reachable to internet")
+            guard let previousRequest = self?.request else {
+                return
             }
-            reachability?.whenUnreachable = { _ in
-                NSLog("Not reachable")
-            }
+            self?.fetchTopNews(request: previousRequest)
+        }
+        reachability?.whenUnreachable = { _ in
+            NSLog("Not reachable")
+            // no-op
+        }
 
-            do {
-                try reachability?.startNotifier()
-            } catch {
-                NSLog("could not start reachability notifier")
-            }
+        do {
+            try reachability?.startNotifier()
         } catch {
-            NSLog("Failed to initialize Reachability \(error.localizedDescription)")
+            NSLog("could not start reachability notifier")
         }
     }
 
