@@ -46,7 +46,7 @@ package NewsApi {
     }
 
     interface NewsApiService {
-        +fetchTopNews(request: TopNewsRequest, completion: (Result<TopNewsResponse, Error>))
+        fetchTopNews(section: Section, completion: (Result<TopNewsResponse, Error>):Void):Void
     }
 
     class NewsApiServiceProvider {
@@ -132,15 +132,39 @@ package NewsApi {
 
 package Application {
     package NewsList {
-        class NewsViewController {
-            +interactor: NewsBusinessLogic
-            +router: NewsRouting
-            -articles: Article[*]
+        namespace NewsListModels {
+            namespace TopNews {
+                class Request {
+                    +section: Section
+                }
+                class Response {
+                    +topNews: TopNewsResponse
+                }
+                class ViewModel {
+                    +articles: ArticleModel[*]
+                    +copyright: String
+                    +lastUpdated: String
+                }
+                class ArticleModel {
+                    +title: String
+                    +author: String
+                    +thumbnail: MediaItem
+                }
+
+                class MediaItem {
+                    +url: URL
+                }
+            }
+        }
+        class NewsListViewController {
+            +interactor: NewsListBusinessLogic
+            +router: NewsListRoutingLogic
+            -viewModel: NewsListModels.TopNews.ViewModel
             -tableView: UITableView
             +init(section: Section):Void
         }
 
-        class NewsTableViewCell extends UITableViewCell {
+        class NewsTableViewCell {
             -image: UIImage
             -titleLabel: UILabel
             -authorLabel: UILabel
@@ -148,83 +172,146 @@ package Application {
         }
 
         interface NewsListDisplayLogic {
-            +reload(article: Article[*]):Void
+            +displayTopNews(viewModel: NewsListModels.TopNews.ViewModel):Void
+            +displayErrorAlert(title: String, message: String):Void
+            +displayToast(message: String): Void
+        }
+        interface NewsListDataStore {
+            +articles: Article[*]
+        }
+        interface NewsListBusinessLogic {
+            +fetchTopNews(request: NewsListModels.TopNews.Request):Void
         }
 
-        interface NewsBusinessLogic {
-            +fetch(section: Section):Void
-        }
-
-        class NewsInteractor {
-            +presenter: NewsPresentation
+        class NewsListInteractor {
+            +presenter: NewsListPresentationLogic
             +init(newsApiService: NewsApiService)
         }
 
-        interface NewsPresentation {
-            +presentNews(response: Article[*])
+        interface NewsListPresentationLogic {
+            +presentTopNews(response: NewsList.TopNews.Response):Void
+            +presentError(error: Error):Void
         }
 
-        class NewsPresenter {
+        class NewsListPresenter {
             +{weak}view: NewsListDisplayLogic?
         }
 
-        interface NewsRouting {
-            +showNewsDetailView(article: Article, navigation: UINavigationController):Void
+        interface NewsListRoutingLogic {
+            +routeToNewsDetailView(index: Int)
         }
 
-        class NewsRouter {
-
+        interface NewsListDataPassing {
+            +dataStore: NewsListDataStore
         }
+
+        class NewsListRouter {
+            +{weak}viewController: UIViewController
+        }
+
     }
 
     package NewsDetail {
+
+        namespace NewsDetailsModels {
+            class Request {
+            }
+            class Response {
+                +article: Article
+            }
+            class ViewModel {
+                +articleDetails: ArticleDetailModel
+            }
+            class ArticleDetailModel {
+                +title: String
+                +author: String
+                +description: String
+                +jumboImage: MediaItem?
+            }
+        }
+
         class NewsDetailViewController {
-            -interactor: NewsDetailBusinessLogic
+            +interactor: NewsDetailBusinessLogic
+            +router: NewsDetailsRoutingLogic
         }
 
         interface NewsDetailDisplayLogic {
-            +display(article: Article):Void
+            +displayNewsDetails(viewModel: NewsDetail.ViewModel):Void
         }
 
         interface NewsDetailBusinessLogic {
-            +fetchDetails(article: Article):Void
-            +loadNext():void
-            +loadPrevious():void
+            +fetchNewsDetails(request: NewsDetailModels.Request):VVoid
+        }
+
+        interface NewsDetailDataStore {
+            +article: Article
         }
 
         class NewsDetailsInteractor {
-            +presenter: NewsDetailsPresentation
-            - article: Article
+            +presenter: NewsDetailPresentationLogic
+            -article: Article
             +init(articles: Article)
         }
 
-        interface NewsDetailsPresentation {
-            +presentNews(response: Article)
+        interface NewsDetailPresentationLogic {
+            +presentNewsDetails(response: NewsDetail.Response)
         }
 
         class NewsDetailsPresenter {
             +{weak}view: NewsDetailDisplayLogic?
         }
 
+        interface NewsDetailsRoutingLogic {
+            +routeToWebView():Void
+        }
+
+        class NewsDetailsRouter {
+            +{weak}viewController: UIViewController?
+            +dataStore: NewsDetailDataStore
+        }
+
         NewsDetailBusinessLogic <|.. NewsDetailsInteractor
         NewsDetailViewController *--> NewsDetailBusinessLogic
+        NewsDetailViewController *--> NewsDetailsRoutingLogic
         NewsDetailDisplayLogic <|.. NewsDetailViewController
-        NewsDetailsPresentation <|.. NewsDetailsPresenter
-        NewsDetailsInteractor *--> NewsDetailsPresentation
+        NewsDetailPresentationLogic <|.. NewsDetailsPresenter
+        NewsDetailsInteractor *--> NewsDetailPresentationLogic
         NewsDetailsPresenter ...> "weak" NewsDetailDisplayLogic
+        NewsDetailsPresenter "creates" -->  NewsDetailsModels.ViewModel
+        NewsDetailDataStore <|.. NewsDetailsInteractor
+        NewsDetailsRoutingLogic <|.. NewsDetailsRouter
+        NewsDetailsRouter "weak"...>  NewsDetailViewController
     }
 }
 
-NewsBusinessLogic <|.. NewsInteractor
-NewsViewController *-up-> NewsBusinessLogic
-NewsListDisplayLogic <|.. NewsViewController
-NewsPresentation <|.. NewsPresenter
-NewsInteractor *-> NewsPresentation
-NewsPresenter ..> "weak" NewsListDisplayLogic
-NewsViewController *-> NewsRouting
-NewsViewController --> NewsTableViewCell
-NewsRouting <|.. NewsRouter
-NewsRouter o--> NewsDetailViewController
-NewsInteractor *--> NewsApiService
+NewsListBusinessLogic <|.up. NewsListInteractor
+NewsListDataStore <|.. NewsListInteractor
+NewsListViewController *-up-> NewsListBusinessLogic
+NewsListDisplayLogic <|.. NewsListViewController
+NewsListPresentationLogic <|.. NewsListPresenter
+
+NewsListInteractor *-> NewsListPresentationLogic
+NewsListPresenter ..> "weak" NewsListDisplayLogic
+NewsListViewController *-> NewsListRoutingLogic
+NewsListRouter ...> "weak" NewsListViewController
+NewsListViewController -left-> NewsTableViewCell
+NewsListRoutingLogic <|.. NewsListRouter
+NewsListDataPassing <|.up. NewsListRouter
+NewsListRouter --> NewsDetailViewController
+NewsListInteractor *--> NewsApiService
+NewsListModels.TopNews.Request --> Section
+NewsListModels.TopNews.Response --> TopNewsResponse
+NewsListModels.TopNews.ViewModel *--> "0..*" NewsListModels.TopNews.ArticleModel
+NewsListModels.TopNews.ArticleModel *--> NewsListModels.TopNews.MediaItem
+NewsListViewController *--> NewsListModels.TopNews.ViewModel
+NewsListViewController ..> NewsListModels.TopNews.Request
+NewsListInteractor ..>  NewsListModels.TopNews.Response
+
+NewsDetailsModels.Response *--> Article
+NewsDetailsModels.ViewModel *--> NewsDetailsModels.ArticleDetailModel
+NewsDetailViewController *--> NewsDetailsModels.ViewModel
+NewsDetailViewController ..> "uses" NewsDetailsModels.Request
+NewsDetailsInteractor -->  NewsDetailsModels.Response
+
 
 @enduml
