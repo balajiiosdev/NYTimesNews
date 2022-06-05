@@ -18,10 +18,10 @@ protocol NewsListDisplayLogic: AnyObject {
 class NewsListViewController: UIViewController {
     var interactor: NewsListBusinessLogic?
     var router: (NSObjectProtocol & NewsListRoutingLogic & NewsListDataPassing)?
-    var viewModel: NewsList.TopNews.ViewModel?
-    var tableView: UITableView!
-    let cellIdentifier = "newsCell"
-    let refreshControl = UIRefreshControl()
+    private var viewModel: NewsList.TopNews.ViewModel?
+    private var tableView: UITableView!
+    private let cellIdentifier = "newsCell"
+    private let refreshControl = UIRefreshControl()
 
     // MARK: Initialisers
     required init?(coder aDecoder: NSCoder) {
@@ -109,10 +109,10 @@ class NewsListViewController: UIViewController {
 extension NewsListViewController: NewsListDisplayLogic {
     func displayTopNews(viewModel: NewsList.TopNews.ViewModel) {
         self.viewModel = viewModel
-        DispatchQueue.main.async {
-            self.hideSpinner()
-            self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
+        DispatchQueue.main.async {[weak self] in
+            self?.hideSpinner()
+            self?.tableView.reloadData()
+            self?.refreshControl.endRefreshing()
         }
     }
 

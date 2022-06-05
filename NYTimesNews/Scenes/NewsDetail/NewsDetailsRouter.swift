@@ -1,5 +1,5 @@
 //
-//  NewsDetailRouter.swift
+//  NewsDetailsRouter.swift
 //  NYTimesNews
 //
 //  Created by Balaji V on 6/4/22.
@@ -8,7 +8,7 @@
 import UIKit
 import SafariServices
 
-@objc protocol NewsDetailRoutingLogic {
+@objc protocol NewsDetailsRoutingLogic {
     func routeToWebView()
 }
 
@@ -16,8 +16,8 @@ protocol NewsDetailDataPassing {
     var dataStore: NewsDetailDataStore? { get }
 }
 
-class NewsDetailRouter: NSObject, NewsDetailRoutingLogic, NewsDetailDataPassing {
-    weak var viewController: NewsDetailViewController?
+class NewsDetailsRouter: NSObject, NewsDetailsRoutingLogic, NewsDetailDataPassing {
+    weak var viewController: UIViewController?
     var dataStore: NewsDetailDataStore?
 
     func routeToWebView() {

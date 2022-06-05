@@ -1,5 +1,5 @@
 //
-//  NewsDetailInteractor.swift
+//  NewsDetailsInteractor.swift
 //  NYTimesNews
 //
 //  Created by Balaji V on 6/4/22.
@@ -16,7 +16,7 @@ protocol NewsDetailDataStore {
     var article: Article? { get set }
 }
 
-class NewsDetailInteractor: NewsDetailBusinessLogic, NewsDetailDataStore {
+class NewsDetailsInteractor: NewsDetailBusinessLogic, NewsDetailDataStore {
     var presenter: NewsDetailPresentationLogic?
     var article: Article?
 

@@ -13,8 +13,8 @@ protocol NewsDetailDisplayLogic: AnyObject {
 
 class NewsDetailViewController: UIViewController {
     var interactor: NewsDetailBusinessLogic?
-    var router: (NSObjectProtocol & NewsDetailRoutingLogic & NewsDetailDataPassing)?
-    let titleLabel: UILabel = {
+    var router: (NSObjectProtocol & NewsDetailsRoutingLogic & NewsDetailDataPassing)?
+    private let titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
@@ -25,7 +25,7 @@ class NewsDetailViewController: UIViewController {
         return label
     }()
 
-    let authorLabel: UILabel = {
+    private let authorLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
@@ -36,7 +36,7 @@ class NewsDetailViewController: UIViewController {
         return label
     }()
 
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,16 +44,16 @@ class NewsDetailViewController: UIViewController {
         return imageView
     }()
 
-    let scrollView = UIScrollView()
+    private let scrollView = UIScrollView()
 
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis  = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
@@ -64,13 +64,15 @@ class NewsDetailViewController: UIViewController {
         return label
     }()
 
-    let seeMoreButton: UIButton = {
+    private let seeMoreButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         let title = NSLocalizedString("see_more_button", comment: "")
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = UIFont.customFont(forTextStyle: .subheadline)
         return button
     }()
+
+    // MARK: Initialisers
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -86,9 +88,9 @@ class NewsDetailViewController: UIViewController {
 
     private func setup() {
         let viewController = self
-        let interactor = NewsDetailInteractor()
+        let interactor = NewsDetailsInteractor()
         let presenter = NewsDetailPresenter()
-        let router = NewsDetailRouter()
+        let router = NewsDetailsRouter()
         viewController.interactor = interactor
         viewController.router = router
         interactor.presenter = presenter
@@ -163,7 +165,7 @@ class NewsDetailViewController: UIViewController {
 
     private func addSeeMoreButton() {
         seeMoreButton.accessibilityLabel = "See More"
-         seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(seeMoreButton)
         let seeMoreButtonTopSpace = 10.0
         NSLayoutConstraint.activate([
