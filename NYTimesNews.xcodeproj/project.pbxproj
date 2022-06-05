@@ -165,6 +165,9 @@
 		6C88C771284CF34E00773303 /* MockNewsDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNewsDetailsInteractor.swift; sourceTree = "<group>"; };
 		6C88C773284CF3DC00773303 /* MockNewsDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNewsDetailsRouter.swift; sourceTree = "<group>"; };
 		6C88C777284CF86400773303 /* NewsDetailsRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsRouterTests.swift; sourceTree = "<group>"; };
+		6C88C779284CFBB000773303 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		6C88C77A284CFBB000773303 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6C88C77B284CFBB000773303 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6CE86F632846F5A2004D5AA5 /* AppConstantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstantsTests.swift; sourceTree = "<group>"; };
 		6CE86F672846F6A5004D5AA5 /* MockNewsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNewsApiService.swift; sourceTree = "<group>"; };
 		6CE86F6C2846F8CC004D5AA5 /* top_news_valid_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = top_news_valid_response.json; sourceTree = "<group>"; };
@@ -527,6 +530,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 6C0901E22840C6A1002B1243;
 			packageReferences = (
@@ -695,6 +699,7 @@
 			children = (
 				6C0901F52840C6A1002B1243 /* Base */,
 				6CE86F78284734F2004D5AA5 /* en */,
+				6C88C779284CFBB000773303 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -703,6 +708,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6C0901FA2840C6A3002B1243 /* Base */,
+				6C88C77A284CFBB000773303 /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -711,6 +717,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6CE86F7C28473645004D5AA5 /* en */,
+				6C88C77B284CFBB000773303 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -722,6 +729,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -783,6 +791,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

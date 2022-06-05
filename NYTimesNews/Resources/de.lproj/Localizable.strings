@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  NYTimesNews
+
+  Created by Balaji V on 6/1/22.
+  
+*/
+
+"top_news_title" = "Top News";
+"server_unavailable_message" = "Server ist nicht verfügbar. Bitte versuche es erneut.";
+"something_went_wrong" = "Etwas ist schief gelaufen. Bitte versuche es erneut.";
+"see_more_button" = "Mehr sehen";
+"news_details" = "Einzelheiten";
+"alert_action_ok" = "Ok";
+"error_occured" = "Fehler aufgetreten";
+"no_internet_connection_title" = "Kein Internet";
+"no_internet_connection_message" = "Serververbindung konnte nicht hergestellt werden. Bitte überprüfe deine Internetverbindung.";
