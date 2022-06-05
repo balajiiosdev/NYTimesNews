@@ -43,6 +43,7 @@ class NewsDetailViewController: UIViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
+    private var imageViewHeightConstraint: NSLayoutConstraint?
 
     private let scrollView = UIScrollView()
 
@@ -152,9 +153,11 @@ class NewsDetailViewController: UIViewController {
         imageView.accessibilityLabel = "Graphic"
         let imageHeight = 300.0
         let viewLayoutGuide = stackView.layoutMarginsGuide
+        let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageHeight)
+        imageViewHeightConstraint = heightConstraint
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalTo: viewLayoutGuide.widthAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: imageHeight)
+            heightConstraint
         ])
     }
 
@@ -224,9 +227,7 @@ extension NewsDetailViewController: NewsDetailDisplayLogic {
                 self.updateScrollViewContentSize()
             }
         } else {
-            NSLayoutConstraint.activate([
-                imageView.heightAnchor.constraint(equalToConstant: 0)
-            ])
+            imageViewHeightConstraint?.constant = 0.0
             updateScrollViewContentSize()
         }
     }
