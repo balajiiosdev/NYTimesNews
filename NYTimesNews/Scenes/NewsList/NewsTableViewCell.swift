@@ -58,9 +58,6 @@ class NewsTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(titleLabel)
-        addSubview(authorLabel)
-        addSubview(thumbnailImage)
         setupUI()
         selectionStyle = .none
     }
@@ -71,32 +68,46 @@ class NewsTableViewCell: UITableViewCell {
 
     // MARK: UI Setup
 
-    func setupUI() {
-        let topPadding = 10.0
+    fileprivate func setupUI() {
+        let padding = 10.0
+        let horizontalStack = UIStackView()
+        horizontalStack.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStack.axis = .horizontal
+        horizontalStack.layoutMargins = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        horizontalStack.isLayoutMarginsRelativeArrangement = true
+        horizontalStack.alignment = .top
+        addSubview(horizontalStack)
+        NSLayoutConstraint.activate([
+            horizontalStack.topAnchor.constraint(equalTo: topAnchor),
+            horizontalStack.widthAnchor.constraint(equalTo: widthAnchor),
+            horizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+            horizontalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .top
+        stackView.distribution = .fill
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: padding)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.spacing = 10.0
+        addSubview(stackView)
+
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(authorLabel)
+
+        horizontalStack.addArrangedSubview(stackView)
+        horizontalStack.addArrangedSubview(thumbnailImage)
+        setupImageView()
+    }
+
+    func setupImageView() {
         let imageWidth = 100.0
         let imageHeight = 100.0
-        let imageTrailingSpace = -10.0
-        let titleLeadingSpace = 10.0
-        let titleTrailingSpace = -10.0
-        let authorBottomSpace = -10.0
-        let authorTopSpace = 10.0
-        NSLayoutConstraint.activate([thumbnailImage.topAnchor.constraint(equalTo: topAnchor, constant: topPadding),
-                                     thumbnailImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                                              constant: imageTrailingSpace),
+        NSLayoutConstraint.activate([
                                      thumbnailImage.widthAnchor.constraint(equalToConstant: imageWidth),
                                      thumbnailImage.heightAnchor.constraint(equalToConstant: imageHeight)])
-        NSLayoutConstraint.activate([titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: topPadding),
-                                     titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                                         constant: titleLeadingSpace),
-                                     titleLabel.trailingAnchor.constraint(equalTo: thumbnailImage.leadingAnchor,
-                                                                          constant: titleTrailingSpace)])
-        NSLayoutConstraint.activate([authorLabel.topAnchor.constraint(greaterThanOrEqualTo: titleLabel.bottomAnchor,
-                                                                      constant: authorTopSpace),
-                                     authorLabel.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                         constant: authorBottomSpace),
-                                     authorLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-                                     authorLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
-                                    ])
     }
 
     // MARK: Accessbility
