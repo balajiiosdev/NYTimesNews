@@ -49,6 +49,7 @@
 		6C82150D2849CB6E0005B992 /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C8214FA2849CB6E0005B992 /* Lato-Medium.ttf */; };
 		6C82150E2849CB6E0005B992 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C8214FB2849CB6E0005B992 /* Lato-ThinItalic.ttf */; };
 		6C8215392849D6F80005B992 /* UIFont+DynamicSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8215382849D6F80005B992 /* UIFont+DynamicSize.swift */; };
+		6C88C72E284CAA6000773303 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 6C88C72D284CAA6000773303 /* Reachability */; };
 		6CE86F642846F5A2004D5AA5 /* AppConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE86F632846F5A2004D5AA5 /* AppConstantsTests.swift */; };
 		6CE86F682846F6A5004D5AA5 /* MockNewsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE86F672846F6A5004D5AA5 /* MockNewsApiService.swift */; };
 		6CE86F6D2846F8CC004D5AA5 /* top_news_valid_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 6CE86F6C2846F8CC004D5AA5 /* top_news_valid_response.json */; };
@@ -160,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C42720F284BEEDB0022E337 /* MBProgressHUD in Frameworks */,
+				6C88C72E284CAA6000773303 /* Reachability in Frameworks */,
 				6CE86FF22847CD3C004D5AA5 /* SDWebImage in Frameworks */,
 				6C80823F28448AFB001943F7 /* NYTimesNewsApi.framework in Frameworks */,
 			);
@@ -385,6 +387,7 @@
 			packageProductDependencies = (
 				6CE86FF12847CD3C004D5AA5 /* SDWebImage */,
 				6C42720E284BEEDB0022E337 /* MBProgressHUD */,
+				6C88C72D284CAA6000773303 /* Reachability */,
 			);
 			productName = NYTimesNews;
 			productReference = 6C0901EB2840C6A1002B1243 /* NYTimesNews.app */;
@@ -461,6 +464,7 @@
 			packageReferences = (
 				6CE86FF02847CD3C004D5AA5 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				6C42720D284BEEDB0022E337 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
+				6C88C72C284CAA6000773303 /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = 6C0901EC2840C6A1002B1243 /* Products */;
 			projectDirPath = "";
@@ -946,6 +950,14 @@
 				kind = branch;
 			};
 		};
+		6C88C72C284CAA6000773303 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		6CE86FF02847CD3C004D5AA5 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
@@ -961,6 +973,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6C42720D284BEEDB0022E337 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
 			productName = MBProgressHUD;
+		};
+		6C88C72D284CAA6000773303 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C88C72C284CAA6000773303 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
 		};
 		6CE86FF12847CD3C004D5AA5 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;

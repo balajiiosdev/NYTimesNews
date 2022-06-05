@@ -117,15 +117,16 @@ extension NewsListViewController: NewsListDisplayLogic {
 
     func displayErrorAlert(title: String?, message: String?) {
         DispatchQueue.main.async {[weak self] in
-            if self?.refreshControl.isRefreshing == true {
-                self?.refreshControl.endRefreshing()
-            } else {
-                self?.hideSpinner()
-            }
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let okTitle = NSLocalizedString("alert_action_ok", comment: "")
             alert.addAction(UIAlertAction(title: okTitle, style: .cancel, handler: nil))
-            self?.present(alert, animated: true)
+            self?.present(alert, animated: true, completion: {
+                if self?.refreshControl.isRefreshing == true {
+                    self?.refreshControl.endRefreshing()
+                } else {
+                    self?.hideSpinner()
+                }
+            })
         }
     }
 }

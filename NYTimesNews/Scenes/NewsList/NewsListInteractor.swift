@@ -7,6 +7,7 @@
 
 import UIKit
 import NYTimesNewsApi
+import Reachability
 
 protocol NewsListBusinessLogic {
     func fetchTopNews(request: NewsList.TopNews.Request)
@@ -19,16 +20,54 @@ protocol NewsListDataStore {
 class NewsListInteractor: NewsListBusinessLogic, NewsListDataStore {
     var presenter: NewsListPresentationLogic?
     private let newsApiService: NewsApiService
-    var articles: [Article] = []
+    private(set) var articles: [Article] = []
+    var reachability: Reachability?
+    private var request: NewsList.TopNews.Request?
 
     init(newsApiService: NewsApiService) {
         self.newsApiService = newsApiService
+        setupReachability()
+    }
+
+    deinit {
+        reachability?.stopNotifier()
+    }
+
+    private func setupReachability() {
+        do {
+            reachability = try Reachability()
+            reachability?.whenReachable = { [weak self] _ in
+                NSLog("Reachable to internet")
+                guard let previousRequest = self?.request else {
+                    return
+                }
+                self?.fetchTopNews(request: previousRequest)
+            }
+            reachability?.whenUnreachable = { _ in
+                NSLog("Not reachable")
+            }
+
+            do {
+                try reachability?.startNotifier()
+            } catch {
+                NSLog("could not start reachability notifier")
+            }
+        } catch {
+            NSLog("Failed to initialize Reachability \(error.localizedDescription)")
+        }
     }
 
     // MARK: Top News
 
     func fetchTopNews(request: NewsList.TopNews.Request) {
+        guard reachability?.connection != .unavailable else {
+            self.request = request
+            let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+            presenter?.presentError(error: error)
+            return
+        }
         newsApiService.fetchTopNews(section: request.section) { [weak self] result in
+            self?.request = nil
             switch result {
             case .success(let response):
                 let topNewsResponse = NewsList.TopNews.Response(topNews: response)
