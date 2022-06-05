@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// TopNewsResponse is used to store the top news server response
 public struct TopNewsResponse: Codable {
     public let status: String
     public let copyright: String

@@ -12,6 +12,9 @@ protocol NetworkServiceProtocol {
                                        completion: @escaping (Result<Request.Response, Error>) -> Void)
 }
 
+/**
+ `NetworkService` responsible to make the network requests
+ */
 final class NetworkService: NetworkServiceProtocol {
     private let session: URLSession
 
@@ -33,6 +36,7 @@ final class NetworkService: NetworkServiceProtocol {
         return urlComponent.url
     }
 
+    /// Makes the network request with DataRequest
     func request<Request: DataRequest>(_ request: Request,
                                        completion: @escaping (Result<Request.Response, Error>) -> Void) {
         guard let url = buildUrl(request: request) else {

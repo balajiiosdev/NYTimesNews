@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+`DataRequest` encapsulates the request
+ */
 protocol DataRequest {
     associatedtype Response
 

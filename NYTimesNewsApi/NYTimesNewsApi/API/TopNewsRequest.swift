@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// TopNewsRequest is used to make top news
 struct TopNewsRequest: DataRequest, Configurable {
     var url: String
     var queryItems: [String: String]
