@@ -7,9 +7,11 @@
 
 import Foundation
 @testable import NYTimesNews
+import NYTimesNewsApi
 import XCTest
 
-class MockNewsListInteractor: NewsListBusinessLogic {
+class MockNewsListInteractor: NewsListBusinessLogic, NewsListDataStore {
+    var articles: [Article] = []
     var fetchTopNewsCalledCount = 0
     var request: NewsList.TopNews.Request?
     var expectation: XCTestExpectation?

@@ -14,7 +14,7 @@ protocol NewsDetailDisplayLogic: AnyObject {
 class NewsDetailViewController: UIViewController {
     var interactor: NewsDetailBusinessLogic?
     var router: (NSObjectProtocol & NewsDetailsRoutingLogic & NewsDetailDataPassing)?
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
@@ -25,7 +25,7 @@ class NewsDetailViewController: UIViewController {
         return label
     }()
 
-    private let authorLabel: UILabel = {
+    let authorLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
@@ -36,7 +36,7 @@ class NewsDetailViewController: UIViewController {
         return label
     }()
 
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ class NewsDetailViewController: UIViewController {
         return stackView
     }()
 
-    private let descriptionLabel: UILabel = {
+    let descriptionLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true

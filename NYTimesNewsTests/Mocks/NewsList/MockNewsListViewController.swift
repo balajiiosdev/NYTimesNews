@@ -19,6 +19,7 @@ class MockNewsListViewController: UIViewController, NewsListDisplayLogic {
     var alertTitle: String?
     var toastMessage: String?
     var expectation: XCTestExpectation?
+    var displayedViewController: UIViewController?
 
     func displayTopNews(viewModel: NewsList.TopNews.ViewModel) {
         displayTopNewsCalledCount += 1

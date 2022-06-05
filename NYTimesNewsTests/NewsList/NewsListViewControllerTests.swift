@@ -30,6 +30,8 @@ class NewsListViewControllerTests: XCTestCase {
 
     override func tearDownWithError() throws {
         mockInteractor = nil
+        mockTableView = nil
+        mockRouter = nil
         sut = nil
         try super.tearDownWithError()
     }
