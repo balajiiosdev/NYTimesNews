@@ -19,7 +19,7 @@ Clean Swift architecture is chosen for the view implementations. It enables the 
 
 ### Detailed Class diagram
 
-![Detailed Class diagram](./HLD.png)
+![Detailed Class diagram](Design/HLD.png)
 
 ## Screenshots
 
