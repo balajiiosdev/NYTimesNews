@@ -281,6 +281,7 @@ package Application {
         NewsDetailDataStore <|.. NewsDetailsInteractor
         NewsDetailsRoutingLogic <|.. NewsDetailsRouter
         NewsDetailsRouter "weak"...>  NewsDetailViewController
+        NewsDetailsRouter --> SFSafariViewController
     }
 }
 
