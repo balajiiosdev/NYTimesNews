@@ -65,6 +65,16 @@ class NewsListPresenterTests: XCTestCase {
         XCTAssertEqual(mockViewController.alertMessage, NSLocalizedString("something_went_wrong", comment: ""))
     }
 
+    func testPresentError_NoInternet() {
+        let timedOutError = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+        sut.presentError(error: timedOutError)
+
+        XCTAssertEqual(mockViewController.displayErrorAlertCalledCount, 1)
+        XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("no_internet_connection_title", comment: ""))
+        let expectedMessage = NSLocalizedString("no_internet_connection_message", comment: "")
+        XCTAssertEqual(mockViewController.alertMessage, expectedMessage)
+    }
+
     private func topNewsResponse() -> TopNewsResponse? {
         guard let fileUrl = url(for: MockDataFileNames.topNewsValidResponse) else {
             XCTFail("\(MockDataFileNames.topNewsValidResponse) is not found")
