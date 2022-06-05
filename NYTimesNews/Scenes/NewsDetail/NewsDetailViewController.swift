@@ -221,10 +221,19 @@ extension NewsDetailViewController: NewsDetailDisplayLogic {
                 // Hence, no need to dispatch on main queue
                 guard let self = self else { return }
                 self.imageView.image = image
-                var size = self.scrollView.contentSize
-                size.height = self.stackView.frame.maxY + 10
-                self.scrollView.contentSize = size
+                self.updateScrollViewContentSize()
             }
+        } else {
+            NSLayoutConstraint.activate([
+                imageView.heightAnchor.constraint(equalToConstant: 0)
+            ])
+            updateScrollViewContentSize()
         }
+    }
+
+    private func updateScrollViewContentSize() {
+        var size = self.scrollView.contentSize
+        size.height = self.seeMoreButton.frame.maxY + 10
+        self.scrollView.contentSize = size
     }
 }
