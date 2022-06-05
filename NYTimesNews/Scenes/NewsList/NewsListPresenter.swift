@@ -26,7 +26,9 @@ class NewsListPresenter: NewsListPresentationLogic {
         let viewModel = NewsList.TopNews.ViewModel(articles: articles,
                                                    copyright: topNews.copyright,
                                                    lastUpdatedDate: topNews.lastUpdated)
-        viewController?.displayTopNews(viewModel: viewModel)
+        DispatchQueue.main.async {[weak self] in
+            self?.viewController?.displayTopNews(viewModel: viewModel)
+        }
     }
 
     func presentError(error: Error) {
@@ -61,21 +63,27 @@ class NewsListPresenter: NewsListPresentationLogic {
         if error == .serviceUnavailable || error == .internalServerError {
             let message = NSLocalizedString("server_unavailable_message", comment: "")
             let title = NSLocalizedString("error_occured", comment: "")
-            viewController?.displayErrorAlert(title: title, message: message)
+            dispalyAlert(title: title, message: message)
         } else {
             showDefaultError()
+        }
+    }
+
+    private func dispalyAlert(title: String?, message: String?) {
+        DispatchQueue.main.async {[weak self] in
+            self?.viewController?.displayErrorAlert(title: title, message: message)
         }
     }
 
     private func showDefaultError() {
         let title = NSLocalizedString("error_occured", comment: "")
         let message = NSLocalizedString("something_went_wrong", comment: "")
-        viewController?.displayErrorAlert(title: title, message: message)
+        dispalyAlert(title: title, message: message)
     }
 
     private func showNoInternetError() {
         let title = NSLocalizedString("no_internet_connection_title", comment: "")
         let message = NSLocalizedString("no_internet_connection_message", comment: "")
-        viewController?.displayErrorAlert(title: title, message: message)
+        dispalyAlert(title: title, message: message)
     }
 }

@@ -18,7 +18,7 @@ class NewsListViewController: UIViewController {
     var interactor: NewsListBusinessLogic?
     var router: (NSObjectProtocol & NewsListRoutingLogic & NewsListDataPassing)?
     private var viewModel: NewsList.TopNews.ViewModel?
-    private var tableView: UITableView!
+    var tableView: UITableView!
     private let cellIdentifier = "newsCell"
     private let refreshControl = UIRefreshControl()
 
@@ -66,7 +66,7 @@ class NewsListViewController: UIViewController {
         addConstraintsToTableView()
     }
 
-    func addPullToRefreshView() {
+    private  func addPullToRefreshView() {
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
@@ -96,11 +96,11 @@ class NewsListViewController: UIViewController {
 
     // MARK: Loading Progress
 
-    func showSpinner() {
+    private func showSpinner() {
         MBProgressHUD.showAdded(to: view, animated: true)
     }
 
-    func hideSpinner() {
+    private func hideSpinner() {
         MBProgressHUD.hide(for: view, animated: true)
     }
 }
@@ -108,26 +108,22 @@ class NewsListViewController: UIViewController {
 extension NewsListViewController: NewsListDisplayLogic {
     func displayTopNews(viewModel: NewsList.TopNews.ViewModel) {
         self.viewModel = viewModel
-        DispatchQueue.main.async {[weak self] in
-            self?.hideSpinner()
-            self?.tableView.reloadData()
-            self?.refreshControl.endRefreshing()
-        }
+        hideSpinner()
+        tableView.reloadData()
+        refreshControl.endRefreshing()
     }
 
     func displayErrorAlert(title: String?, message: String?) {
-        DispatchQueue.main.async {[weak self] in
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let okTitle = NSLocalizedString("alert_action_ok", comment: "")
-            alert.addAction(UIAlertAction(title: okTitle, style: .cancel, handler: nil))
-            self?.present(alert, animated: true, completion: {
-                if self?.refreshControl.isRefreshing == true {
-                    self?.refreshControl.endRefreshing()
-                } else {
-                    self?.hideSpinner()
-                }
-            })
-        }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okTitle = NSLocalizedString("alert_action_ok", comment: "")
+        alert.addAction(UIAlertAction(title: okTitle, style: .cancel, handler: nil))
+        present(alert, animated: true, completion: {[weak self] in
+            if self?.refreshControl.isRefreshing == true {
+                self?.refreshControl.endRefreshing()
+            } else {
+                self?.hideSpinner()
+            }
+        })
     }
 }
 

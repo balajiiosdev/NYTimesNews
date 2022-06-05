@@ -27,6 +27,8 @@ class NewsListPresenterTests: XCTestCase {
     }
 
     func testPresentTopNews() {
+        let expectation = self.expectation(description: "displayTopNewsCalled")
+        mockViewController.expectation = expectation
         guard let response = topNewsResponse() else {
             XCTFail("Unable to prepare the TopNewsResponse object")
             return
@@ -34,6 +36,7 @@ class NewsListPresenterTests: XCTestCase {
 
         sut.presentTopNews(response: NewsList.TopNews.Response(topNews: response))
 
+        wait(for: [expectation], timeout: 5.0)
         XCTAssertEqual(mockViewController.displayTopNewsCalledCount, 1)
         let viewModel = mockViewController.viewModel
         XCTAssertNotNil(viewModel)
@@ -41,16 +44,24 @@ class NewsListPresenterTests: XCTestCase {
     }
 
     func testPresentError_InternalServerError() {
+        let expectation = self.expectation(description: "displayTopNewsCalled")
+        mockViewController.expectation = expectation
+
         sut.presentError(error: HttpError.internalServerError)
 
+        wait(for: [expectation], timeout: 5.0)
         XCTAssertEqual(mockViewController.displayErrorAlertCalledCount, 1)
         XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("error_occured", comment: ""))
         XCTAssertEqual(mockViewController.alertMessage, NSLocalizedString("server_unavailable_message", comment: ""))
     }
 
     func testPresentError_NoDataFound() {
+        let expectation = self.expectation(description: "displayTopNewsCalled")
+        mockViewController.expectation = expectation
+
         sut.presentError(error: NetworkServiceError.noDataFound)
 
+        wait(for: [expectation], timeout: 5.0)
         XCTAssertEqual(mockViewController.displayErrorAlertCalledCount, 1)
         XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("error_occured", comment: ""))
         XCTAssertEqual(mockViewController.alertMessage, NSLocalizedString("something_went_wrong", comment: ""))
@@ -58,8 +69,12 @@ class NewsListPresenterTests: XCTestCase {
 
     func testPresentError_RequestTimedOut() {
         let timedOutError = NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut, userInfo: nil)
+        let expectation = self.expectation(description: "displayTopNewsCalled")
+        mockViewController.expectation = expectation
+
         sut.presentError(error: timedOutError)
 
+        wait(for: [expectation], timeout: 5.0)
         XCTAssertEqual(mockViewController.displayErrorAlertCalledCount, 1)
         XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("error_occured", comment: ""))
         XCTAssertEqual(mockViewController.alertMessage, NSLocalizedString("something_went_wrong", comment: ""))
@@ -67,8 +82,12 @@ class NewsListPresenterTests: XCTestCase {
 
     func testPresentError_NoInternet() {
         let timedOutError = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+        let expectation = self.expectation(description: "displayTopNewsCalled")
+        mockViewController.expectation = expectation
+
         sut.presentError(error: timedOutError)
 
+        wait(for: [expectation], timeout: 5.0)
         XCTAssertEqual(mockViewController.displayErrorAlertCalledCount, 1)
         XCTAssertEqual(mockViewController.alertTitle, NSLocalizedString("no_internet_connection_title", comment: ""))
         let expectedMessage = NSLocalizedString("no_internet_connection_message", comment: "")
