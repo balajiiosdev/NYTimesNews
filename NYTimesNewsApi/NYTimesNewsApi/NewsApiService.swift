@@ -6,8 +6,12 @@
 //
 
 import Foundation
-
+/**
+ NewApiService is used to get news
+ */
 public protocol NewsApiService {
+
+    /// Fetches the top news based on `Section`
     func fetchTopNews(section: Section, completion: @escaping (Result<TopNewsResponse, Error>) -> Void)
 }
 
